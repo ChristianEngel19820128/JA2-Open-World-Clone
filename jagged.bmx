@@ -60,14 +60,6 @@ Cls
 
 now=MilliSecs()
 
-'mouse=0
-
-'mouse_x=MouseX()
-'mouse_y=MouseY()
-
-'If MouseHit(1) Then mouse=1
-'If MouseHit(2) Then mouse=2
-
 mouse_do()
 
 do()
