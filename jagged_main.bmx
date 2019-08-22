@@ -89,10 +89,6 @@ Include "jagged_player.bmx"
 Include "jagged_items.bmx"
 Include "jagged_anim.bmx"
 Include "jagged_laptop.bmx"
-Include "jagged_test.bmx"
-
-
-
 
 
 
