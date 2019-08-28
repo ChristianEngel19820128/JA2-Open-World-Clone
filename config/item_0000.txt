@@ -1,0 +1,68 @@
+<Name>
+M4 Colt Commando 5,56x45mm
+<Imagepath>
+weapon/m4coltcommando.png
+<Groups max=3>
+weapon
+assaultrifle
+none
+<dualhand>
+1
+<used Inventory Slot>
+back
+<used Space>
+25
+<used Room>
+0
+<is Supressed>
+0
+<Addon Supressor>
+1
+<Addon Bipod>
+1
+<Addon Scope>
+1
+<Addon Grenadelauncher>
+1
+<Addon Laserpointer>
+1
+<Caliber>
+cal_556x45mm
+<Caliber Type>
+none
+<Magazine>
+1
+<Ammo>
+0
+<Damage>
+0
+<Range>
+0
+<possible Stack>
+0
+<possible Contain Space>
+0
+<Light>
+0
+<Lightrange>
+0
+<Lightduration>
+0
+<Light Color max=3>
+0
+0
+0
+<Values max=5>
+0
+0
+0
+0
+0
+<Slots>
+0
+<Slots Capacity max=5>
+0
+0
+0
+0
+0
