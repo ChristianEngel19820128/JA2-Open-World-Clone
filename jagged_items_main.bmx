@@ -123,11 +123,11 @@ Function item_find_group(i)
         item_type[i]=item_type[item_stack_index[i,k]]
       Else
         If g=False Then
-          group=item_type_group2[item_type[item_stack_index[i,k]]]
+          group=item_type_group[item_type[item_stack_index[i,k]],1]
           g=True
         End If
 
-        If g=True And item_type_group2[item_type[item_stack_index[i,k]]]<>group Then
+        If g=True And item_type_group[item_type[item_stack_index[i,k]],1]<>group Then
            item_set_stack(i)
         End If
 
@@ -141,11 +141,11 @@ End Function
 
 Function item_set_stack(i)
 
-  Select item_type_group1[item_type[i]]
-    Case group_munition
-      item_type[i]=mun_mixed
-    Case group_knicklicht
-      item_type[i]=knicklichter
+  Select item_type_group[item_type[i],0]
+    Case group_ammo
+      'item_type[i]=mun_mixed
+    Case group_glowstick
+      'item_type[i]=knicklichter
   End Select
 
 End Function

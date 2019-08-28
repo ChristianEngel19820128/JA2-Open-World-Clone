@@ -132,6 +132,9 @@ End Function
 
 
 
+
+
+
 Function player_way_find_short(index,x1,y1,action)
 
   Local f=False
@@ -176,6 +179,9 @@ Function player_way_find_short(index,x1,y1,action)
         p2:-1
       Else
 
+        x=0
+        y=0
+
         If x1<x2 Then x=-1
         If x1>x2 Then x=+1
         If y1<y2 Then y=-1
@@ -187,22 +193,37 @@ Function player_way_find_short(index,x1,y1,action)
 
           If world_obj_type[x2+x,y2+y,z2]=0 Then
 
-            If action=player_act_run Then
-              e= Not player_tar_add(index,x2+x,y2+y,player_act_run)
+            If world_ground_type[x2+x,y2+y,z2]=c_water Then
+              e= Not player_tar_add(index,x2+x,y2+y,player_act_w_walk)
             Else
+              If world_ground_type[x2+x,y2+y,z2]=c_deep_water Then
+                If action=player_act_run Then
+                  e= Not player_tar_add(index,x2+x,y2+y,player_act_w_swimfast)
+                Else
+                  e= Not player_tar_add(index,x2+x,y2+y,player_act_w_swim)
+                End If
+              Else
 
-              Select p2
-                Case 0
-                  e= Not player_tar_add(index,x2+x,y2+y,player_act_walk)
-                Case 1
-                  e= Not player_tar_add(index,x2+x,y2+y,player_act_swat)
-                Case 2
-                  e= Not player_tar_add(index,x2+x,y2+y,player_act_crawl)
-                Default
-                  e=True
-              End Select
-
-            End If
+		            If action=player_act_run Then
+		              e= Not player_tar_add(index,x2+x,y2+y,player_act_run)
+		            Else
+		
+		              Select p2
+		                Case 0
+		                  e= Not player_tar_add(index,x2+x,y2+y,player_act_walk)
+		                Case 1
+		                  e= Not player_tar_add(index,x2+x,y2+y,player_act_swat)
+		                Case 2
+		                  e= Not player_tar_add(index,x2+x,y2+y,player_act_crawl)
+		                Default
+		                  e=True
+		              End Select
+		
+		            End If
+		
+		          End If
+		
+		        End If
 
             x2:+x
             y2:+y
@@ -222,13 +243,7 @@ Function player_way_find_short(index,x1,y1,action)
 
             Else
 
-              If player_handed[index]=player_lefthand Then
-                a=player_field_left(x2,y2,z2,x,y)
-              Else
-                a=player_field_right(x2,y2,z2,x,y)
-              End If
-
-                Select a
+                Select player_check_align(a2,a)
                   Case 1
                     e= Not player_tar_add(index,x2,y2,player_act_turn_left)
                     a2:-1
@@ -241,19 +256,13 @@ Function player_way_find_short(index,x1,y1,action)
                     e=True
                 End Select
 
-             End If
+            End If
 
           End If
 
         Else
 
-            If player_handed[index]=player_lefthand Then
-              a=player_field_left(x2,y2,z2,x,y)
-            Else
-              a=player_field_right(x2,y2,z2,x,y)
-            End If
-
-              Select a
+              Select player_check_align(a2,a)
                 Case 1
                   e= Not player_tar_add(index,x2,y2,player_act_turn_left)
                   a2:-1

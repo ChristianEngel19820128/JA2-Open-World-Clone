@@ -8,27 +8,29 @@ Const player_dualhand=2
 Global player_inv_x=309
 Global player_inv_y=wy-200
 
-Const player_inv_max=17
+Const player_inv_max=15
 
-Const player_inv_linkehand=0
-Const player_inv_rechtehand=1
-Const player_inv_linkeschulter=2
-Const player_inv_rechteschulter=3
-Const player_inv_kopf=4
-Const player_inv_gesicht=5
-Const player_inv_augen=6
-Const player_inv_mund=7
-Const player_inv_brust=8
-Const player_inv_ruecken=9
-Const player_inv_oberkoerper=10
-Const player_inv_guertel=11
-Const player_inv_beine=12
-Const player_inv_kniee=13
-Const player_inv_fuesse=14
-Const player_inv_holster=15
-Const player_inv_schulter=16
+Const player_inv_none=0
+Const player_inv_head=1
+Const player_inv_face=2
+Const player_inv_eyes=3
+Const player_inv_mouth=4
+Const player_inv_chest=5
+Const player_inv_back=6
+Const player_inv_torso=7
+Const player_inv_belt=8
+Const player_inv_legs=9
+Const player_inv_knees=10
+Const player_inv_foot=11
+Const player_inv_holster=12
+Const player_inv_shoulders=13
+Const player_inv_wrist=14
 
 
+Const player_hand_max=2
+
+Const player_hand_left=1
+Const player_hand_right=2
 
 
 
@@ -47,6 +49,11 @@ Const player_act_climb_down=11
 Const player_act_pickup=12
 Const player_act_open=13
 Const player_act_throw=14
+Const player_act_w_stand=15
+Const player_act_w_walk=16
+Const player_act_w_tred=17
+Const player_act_w_swim=18
+Const player_act_w_swimfast=19
 
 
 
@@ -57,7 +64,7 @@ Const player_act_throw=14
 
 'advanced animation porting
 
-Const player_anim_max=11
+Const player_anim_max=16
 
 Global player_anim[player_anim_max]
 Global player_anim_reverse[player_anim_max]
@@ -70,20 +77,25 @@ Global player_anim_keyframe_max[player_anim_max]
 Const player_anim_stand=0
 Const player_anim_crouch=1
 Const player_anim_prone=2
+Const player_anim_w_stand=3
+Const player_anim_w_tred=4
 
 'transition
 
-Const player_anim_go_stand_to_crouch=3
-Const player_anim_go_crouch_to_prone=4
-Const player_anim_go_prone_to_crouch=5
-Const player_anim_go_crouch_to_stand=6
+Const player_anim_go_stand_to_crouch=5
+Const player_anim_go_crouch_to_prone=6
+Const player_anim_go_prone_to_crouch=7
+Const player_anim_go_crouch_to_stand=8
 
 'move
 
-Const player_anim_walk=7
-Const player_anim_run=8
-Const player_anim_swat=9
-Const player_anim_crawl=10
+Const player_anim_walk=9
+Const player_anim_run=10
+Const player_anim_swat=11
+Const player_anim_crawl=12
+Const player_anim_w_walk=13
+Const player_anim_w_swim=14
+Const player_anim_w_swimfast=15
 
 'animation config data
 
@@ -106,6 +118,18 @@ player_anim_reverse[player_anim_prone]=0
 player_anim_loop[player_anim_prone]=1
 player_anim_keyframe_min[player_anim_prone]=5
 player_anim_keyframe_max[player_anim_prone]=5
+
+player_anim[player_anim_w_stand]=anim_w_stand
+player_anim_reverse[player_anim_w_stand]=0
+player_anim_loop[player_anim_w_stand]=1
+player_anim_keyframe_min[player_anim_w_stand]=0
+player_anim_keyframe_max[player_anim_w_stand]=7
+
+player_anim[player_anim_w_tred]=anim_w_tred
+player_anim_reverse[player_anim_w_tred]=0
+player_anim_loop[player_anim_w_tred]=1
+player_anim_keyframe_min[player_anim_w_tred]=0
+player_anim_keyframe_max[player_anim_w_tred]=11
 
 'transition
 
@@ -159,8 +183,23 @@ player_anim_loop[player_anim_crawl]=1
 player_anim_keyframe_min[player_anim_crawl]=5
 player_anim_keyframe_max[player_anim_crawl]=18
 
+player_anim[player_anim_w_walk]=anim_w_walk
+player_anim_reverse[player_anim_w_walk]=0
+player_anim_loop[player_anim_w_walk]=1
+player_anim_keyframe_min[player_anim_w_walk]=0
+player_anim_keyframe_max[player_anim_w_walk]=11
 
+player_anim[player_anim_w_swim]=anim_w_swim
+player_anim_reverse[player_anim_w_swim]=0
+player_anim_loop[player_anim_w_swim]=1
+player_anim_keyframe_min[player_anim_w_swim]=0
+player_anim_keyframe_max[player_anim_w_swim]=15
 
+player_anim[player_anim_w_swimfast]=anim_w_swim
+player_anim_reverse[player_anim_w_swimfast]=0
+player_anim_loop[player_anim_w_swimfast]=1
+player_anim_keyframe_min[player_anim_w_swimfast]=0
+player_anim_keyframe_max[player_anim_w_swimfast]=15
 
 
 
@@ -186,8 +225,8 @@ Const player_e_pos_change=4
 Const player_e_water_swim=8
 Const player_e_water_swimfast=10
 Const player_e_water_turn=4
-Const player_e_water_move=6
-Const player_e_water_move_r=8
+Const player_e_water_walk=6
+Const player_e_water_walk_r=8
 Const player_e_inventory_action=1
 
 
@@ -453,10 +492,14 @@ Global player_tarnung_nacht_beine[player_max]
 Global player_inventory[player_max,player_inv_max]
 Global player_inventory_index[player_max,player_inv_max]
 
+Global player_hand[player_max,player_hand_max]
+Global player_hand_index[player_max,player_hand_max]
+
+
 
 'charakter eigenschaften
 
-Const player_eigenschaften_max=41
+Const player_eigenschaften_max=47
 
 Const c_pfadfinder=0         'findet immer den besten weg durch das gelände, zu dumm wenn er der einzige ist
 Const c_vergesslich=1        'vergisst ab und zu den aufgetragenen weg oder die erteilte aufgabe
@@ -499,6 +542,13 @@ Const c_nachteule=37
 Const c_elektriker=38
 Const c_schizophren=39
 Const c_messer=40
+Const c_angstfrei=41
+Const c_hitzeempfindlich=42
+Const c_kaelteempfindlich=43
+Const c_hitzeresistent=44
+Const c_kaelteresistent=45
+Const c_amazone=46
+
 
 Global player_eigenschaften_selected_max=5
 
@@ -553,6 +603,12 @@ player_eigenschaften_strings[c_nachteule]=t_nachteule
 player_eigenschaften_strings[c_elektriker]=t_elektriker
 player_eigenschaften_strings[c_schizophren]=t_schizophren
 player_eigenschaften_strings[c_messer]=t_messer
+player_eigenschaften_strings[c_angstfrei]=t_angstfrei
+player_eigenschaften_strings[c_hitzeempfindlich]=t_hitzeempfindlich
+player_eigenschaften_strings[c_kaelteempfindlich]=t_kaelteempfindlich
+player_eigenschaften_strings[c_hitzeresistent]=t_hitzeresistent
+player_eigenschaften_strings[c_kaelteresistent]=t_kaelteresistent
+player_eigenschaften_strings[c_amazone]=t_amazone
 
 'cost value
 
@@ -597,8 +653,21 @@ player_eigenschaften_costvalue[c_nachteule]=-10
 player_eigenschaften_costvalue[c_elektriker]=-8
 player_eigenschaften_costvalue[c_schizophren]=8
 player_eigenschaften_costvalue[c_messer]=-8
+player_eigenschaften_costvalue[c_angstfrei]=-4
+player_eigenschaften_costvalue[c_hitzeempfindlich]=4
+player_eigenschaften_costvalue[c_kaelteempfindlich]=4
+player_eigenschaften_costvalue[c_hitzeresistent]=-4
+player_eigenschaften_costvalue[c_kaelteresistent]=-4
+player_eigenschaften_costvalue[c_amazone]=-4
+
 
 'disable matrix
+
+player_eigenschaften_disablevalue[c_hitzeempfindlich,c_hitzeresistent]=1
+player_eigenschaften_disablevalue[c_hitzeresistent,c_hitzeempfindlich]=1
+player_eigenschaften_disablevalue[c_kaelteempfindlich,c_kaelteresistent]=1
+player_eigenschaften_disablevalue[c_kaelteresistent,c_kaelteempfindlich]=1
+
 
 player_eigenschaften_disablevalue[c_einzelgaenger,c_teamspieler]=1
 player_eigenschaften_disablevalue[c_einzelgaenger,c_anfuehrer]=1
@@ -634,10 +703,13 @@ player_eigenschaften_disablevalue[c_naturmensch,c_stadtkind]=1
 player_eigenschaften_disablevalue[c_stadtkind,c_naturmensch]=1
 
 player_eigenschaften_disablevalue[c_feigling,c_mutig]=1
+player_eigenschaften_disablevalue[c_feigling,c_angstfrei]=1
+player_eigenschaften_disablevalue[c_angstfrei,c_feigling]=1
 player_eigenschaften_disablevalue[c_mutig,c_feigling]=1
 
 player_eigenschaften_disablevalue[c_langschlaefer,c_leichterschlaf]=1
 player_eigenschaften_disablevalue[c_leichterschlaf,c_langschlaefer]=1
+
 
 player_eigenschaften_disablevalue[c_durchschnittstyp,c_geschickt]=1
 player_eigenschaften_disablevalue[c_durchschnittstyp,c_stark]=1

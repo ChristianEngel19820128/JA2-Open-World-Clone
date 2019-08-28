@@ -116,6 +116,18 @@ End Function
 
 Function main_init()
 
+  If FileType("data")<>2 Then
+    CreateDir("data")
+  End If
+
+  If FileType("data/map")<>2 Then
+    CreateDir("data/map")
+  End If
+
+  If FileType("data/player")<>2 Then
+    CreateDir("data/player")
+  End If
+
   strings_load()
   soldier_load()
   soldier_custom_load()
@@ -207,6 +219,10 @@ Function main_do()
       time_do()
       world_cam_move()
       keys()
+
+      gui_minimap_draw()
+      gui_maindata_group_draw()
+      gui_inventar_draw()
 
   End Select
 

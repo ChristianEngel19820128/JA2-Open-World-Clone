@@ -272,6 +272,27 @@ End Function
 
 
 
+Function player_check_align(a1,a2)
+
+  For Local i=1 To 4
+    Local a=a1+i
+    If a>7 Then a=a-8
+    If a=a2 Then
+      Return 2
+    End If
+  Next
+
+  For Local i=1 To 4
+    Local a=a1-i
+    If a<0 Then a=a+8
+    If a=a2 Then
+      Return 1
+    End If
+  Next
+
+  Return 0
+
+End Function
 
 
 

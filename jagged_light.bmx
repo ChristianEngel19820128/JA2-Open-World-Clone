@@ -1,15 +1,15 @@
 
 'licht
 
-Global img_lichtkegel:TImage=LoadImage("gfx/light/lichtkegel.png",0)
+Global img_lichtkegel:TImage=LoadImage("gfx/world/light/lichtkegel.png",0)
 MidHandleImage img_lichtkegel
 
 
-Global img_light_1600x800:TImage=LoadImage("gfx/light/1600x800.png",0)
+Global img_light_1600x800:TImage=LoadImage("gfx/world/light/1600x800.png",0)
 MidHandleImage img_light_1600x800
-Global img_light_800x400:TImage=LoadImage("gfx/light/800x400.png",0)
+Global img_light_800x400:TImage=LoadImage("gfx/world/light/800x400.png",0)
 MidHandleImage img_light_800x400
-Global img_light_400x200:TImage=LoadImage("gfx/light/400x200.png",0)
+Global img_light_400x200:TImage=LoadImage("gfx/world/light/400x200.png",0)
 MidHandleImage img_light_400x200
 
 
@@ -79,7 +79,7 @@ Function lightmap_refresh_item()
 	            Case location_player
 	
 	              If item_type_stack[item_type[i]]=0 Then
-				          If player_inventory_index[item_location_index[i],player_inv_rechtehand]=i Or player_inventory_index[item_location_index[i],player_inv_linkehand]=i Then
+				          If player_hand_index[item_location_index[i],player_hand_right]=i Or player_hand_index[item_location_index[i],player_hand_left]=i Then
 				
 			                x=player_world_x[item_location_index[i]]
 			                y=player_world_y[item_location_index[i]]
@@ -108,7 +108,7 @@ Function lightmap_refresh_item()
 
 	                Case location_player
 	
-		              If player_inventory_index[item_location_index[item_location_index[i]],player_inv_rechtehand]=item_location_index[i] Or player_inventory_index[item_location_index[item_location_index[i]],player_inv_linkehand]=item_location_index[i] Then
+		              If player_hand_index[item_location_index[item_location_index[i]],player_hand_right]=item_location_index[i] Or player_hand_index[item_location_index[item_location_index[i]],player_hand_left]=item_location_index[i] Then
 	                    x=player_world_x[item_location_index[item_location_index[i]]]
 	                    y=player_world_y[item_location_index[item_location_index[i]]]
 	                    z=player_world_z[item_location_index[item_location_index[i]]]	
@@ -151,7 +151,7 @@ Function lightmap_refresh()
 
     If world_item[x,y,z,item]>0 Then
 
-      If item_type_group1[item_type[world_item_index[x,y,z,item]]]=group_light Then
+      If item_type_group[item_type[world_item_index[x,y,z,item]],0]=group_light Or item_type_group[item_type[world_item_index[x,y,z,item]],1]=group_light Or item_type_group[item_type[world_item_index[x,y,z,item]],2]=group_light Then
       If item_aktiv[world_item_index[x,y,z,item]]=1 Then
       If item_time[world_item_index[x,y,z,item]]+item_type_light_duration[item_type[world_item_index[x,y,z,item]]]>timestemp Then
       For Local i=-item_type_light_range[item_type[world_item_index[x,y,z,item]]] To item_type_light_range[item_type[world_item_index[x,y,z,item]]]
@@ -203,7 +203,7 @@ Function items_light_draw()
 	            Case location_player
 		
 	              If item_type_stack[item_type[i]]=0 Then
-	              If player_inventory_index[item_location_index[i],player_inv_rechtehand]=i Or player_inventory_index[item_location_index[i],player_inv_linkehand]=i Then
+	              If player_hand_index[item_location_index[i],player_hand_right]=i Or player_hand_index[item_location_index[i],player_hand_left]=i Then
 	
 	                Local x1=wx/2+(player_world_x[item_location_index[i]]-world_cam_x)*20-(player_world_y[item_location_index[i]]-world_cam_y)*20-20
 	                Local y1=-wx/2+(player_world_y[item_location_index[i]]-world_cam_y)*10+(player_world_x[item_location_index[i]]-world_cam_x)*10
@@ -235,7 +235,7 @@ Function items_light_draw()
 			              DrawImage(img_light_1600x800,MouseX(),MouseY())
 			
 			            Case location_player
-			              If player_inventory_index[item_location_index[item_location_index[i]],player_inv_rechtehand]=item_location_index[i] Or player_inventory_index[item_location_index[item_location_index[i]],player_inv_linkehand]=item_location_index[i] Then
+			              If player_hand_index[item_location_index[item_location_index[i]],player_hand_right]=item_location_index[i] Or player_hand_index[item_location_index[item_location_index[i]],player_hand_left]=item_location_index[i] Then
 		
 			                Local x1=wx/2+(player_world_x[item_location_index[item_location_index[i]]]-world_cam_x)*20-(player_world_y[item_location_index[item_location_index[i]]]-world_cam_y)*20-20
 			                Local y1=-wx/2+(player_world_y[item_location_index[item_location_index[i]]]-world_cam_y)*10+(player_world_x[item_location_index[item_location_index[i]]]-world_cam_x)*10

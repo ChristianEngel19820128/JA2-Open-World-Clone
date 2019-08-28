@@ -19,6 +19,8 @@ End Function
 
 Function player_tar_add(index,x,y,action)
 
+  Print "try To add target"
+
   Local i=player_tar_list_count[index]
   Local f=False
   While f=False And i<player_tar_max
@@ -90,7 +92,8 @@ Function player_tar_set_list(index,x,y,action)
   If player_eigenschaften[index,c_pfadfinder]=0 Then
     'kürzesten weg
     Print "search shortest way to x="+x+" y="+y
-    f=player_way_find_short(index,x,y,action)
+    'f=player_way_find_short(index,x,y,action)
+    f=player_way_find_fast(index,x,y,action)
   Else
     'schnelster weg
     Print "search fastest way to x="+x+" y="+y

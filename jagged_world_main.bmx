@@ -29,8 +29,7 @@ End Function
 
 Function world_save()
 
-
-  If FileType("data/map/"+world_map_x+"_"+world_map_y)=0 Then
+  If FileType("data/map/"+world_map_x+"_"+world_map_y)<>2 Then
     CreateDir("data/map/"+world_map_x+"_"+world_map_y)
   End If
 
@@ -1164,12 +1163,22 @@ Function world_init()
 		
 	    If Rand(0,10000)>9990-16*2+map_height[world_map_x,world_map_y]*2-8*2+map_urban[world_map_x,world_map_y]*2 Then
       	If map_vegetation[world_map_x,world_map_y]=veg_sumpf Then
-			    world_ground_type[x,y,z]=c_water
-		      world_ground_index[x,y,z]=Rand(0,9)
+          If Rand(0,1)=1 Then
+			      world_ground_type[x,y,z]=c_deep_water
+		        world_ground_index[x,y,z]=Rand(0,9)
+  	      Else
+            world_ground_type[x,y,z]=c_water
+		        world_ground_index[x,y,z]=Rand(0,9)
+		      End If
 		    Else
 			    If Rand(0,10000)>9990-16*2+map_height[world_map_x,world_map_y]*2-8*2+map_urban[world_map_x,world_map_y]*2 Then
-					  world_ground_type[x,y,z]=c_water
-		        world_ground_index[x,y,z]=Rand(0,9)
+	          If Rand(0,1)=1 Then
+				      world_ground_type[x,y,z]=c_deep_water
+			        world_ground_index[x,y,z]=Rand(0,9)
+	  	      Else
+	            world_ground_type[x,y,z]=c_water
+			        world_ground_index[x,y,z]=Rand(0,9)
+			      End If
 			    End If
 			  End If
 	  	End If
@@ -1183,10 +1192,18 @@ Function world_init()
 
 
   If map_vegetation[world_map_x,world_map_y]=veg_sumpf Then
+    world_gen_field(c_deep_water,3,3)
+  Else
+    world_gen_field(c_deep_water,1,3)
+  End If
+
+  If map_vegetation[world_map_x,world_map_y]=veg_sumpf Then
     world_gen_field(c_water,6,3)
   Else
     world_gen_field(c_water,1,3)
   End If
+
+
 
   world_gen_field(c_gras,1,3)
 

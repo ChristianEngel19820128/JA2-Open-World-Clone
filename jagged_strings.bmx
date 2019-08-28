@@ -134,6 +134,13 @@ Const t_verfuegbar=113
 Const t_stoppen=114
 Const t_ausdauer=115
 Const t_messer=116
+Const t_angstfrei=117
+Const t_hitzeempfindlich=118
+Const t_kaelteempfindlich=119
+Const t_hitzeresistent=120
+Const t_kaelteresistent=121
+Const t_amazone=122
+
 
 Global strings:String[strings_max]		
 		

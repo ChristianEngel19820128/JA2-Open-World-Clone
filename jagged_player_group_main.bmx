@@ -27,8 +27,10 @@ Function group_new(x,y,fraction)
       Next
 
       If fraction=0 Then group_count:+1
+
       group_player_count[i]=0
 
+      group_player_selected[i]=0
 
       f=True
       Return i

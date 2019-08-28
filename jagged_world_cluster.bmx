@@ -6,7 +6,7 @@ Function world_cluster_save()
 
   If world_save_cache_enabled=1 Then
 
-  If FileType("data/map/"+world_map_x+"_"+world_map_y)=0 Then
+  If FileType("data/map/"+world_map_x+"_"+world_map_y)<>2 Then
     CreateDir("data/map/"+world_map_x+"_"+world_map_y)
   End If
 
@@ -24,9 +24,9 @@ Function world_cluster_save()
 
 	      SavePixmapPNG(LockImage(world_cluster_ground_img[i,k]),"data/map/"+world_map_x+"_"+world_map_y+"/cluster_ground_"+i+"_"+k+".png",compression)
 	
-		    If world_cluster_img[i,k] <> Null Then
+		    If world_cluster_objects_img[i,k] <> Null Then
 		
-		      SavePixmapPNG(LockImage(world_cluster_img[i,k]),"data/map/"+world_map_x+"_"+world_map_y+"/cluster_"+i+"_"+k+".png",compression)
+		      SavePixmapPNG(LockImage(world_cluster_objects_img[i,k]),"data/map/"+world_map_x+"_"+world_map_y+"/cluster_objects_"+i+"_"+k+".png",compression)
 		
 				  world_cache[i,k]=1
 				  change=1
@@ -68,11 +68,11 @@ Function world_cluster_load()
 	  For Local i=0 To world_x/world_cluster_size-1
 	  For Local k=0 To world_y/world_cluster_size-1
 	
-		  If world_cache[i,k]=1 And FileType("data/map/"+world_map_x+"_"+world_map_y+"/cluster_ground_"+i+"_"+k+".png")=1 And FileType("data/map/"+world_map_x+"_"+world_map_y+"/cluster_"+i+"_"+k+".png")=1 Then
+		  If world_cache[i,k]=1 And FileType("data/map/"+world_map_x+"_"+world_map_y+"/cluster_ground_"+i+"_"+k+".png")=1 And FileType("data/map/"+world_map_x+"_"+world_map_y+"/cluster_objects_"+i+"_"+k+".png")=1 Then
 		
 		      world_cluster_ground_img[i,k]=LoadImage("data/map/"+world_map_x+"_"+world_map_y+"/cluster_ground_"+i+"_"+k+".png",0)
 		
-		      world_cluster_img[i,k]=LoadImage("data/map/"+world_map_x+"_"+world_map_y+"/cluster_"+i+"_"+k+".png",0)
+		      world_cluster_objects_img[i,k]=LoadImage("data/map/"+world_map_x+"_"+world_map_y+"/cluster_objects_"+i+"_"+k+".png",0)
 			
 	    Else
 	      world_cluster_create(i,k,i*world_cluster_size,k*world_cluster_size)
@@ -88,9 +88,7 @@ End Function
 
 
 
-Function world_cluster_create(x1,y1,x2,y2)
-
-  
+Function world_cluster_create_ground(x1,y1,x2,y2)
 
   Local pix:TPixmap=CreatePixmap(world_cluster_dx,world_cluster_dy,PF_RGBA8888)
   ClearPixels(pix)
@@ -176,7 +174,14 @@ Function world_cluster_create(x1,y1,x2,y2)
 
   world_cluster_ground_img[x1,y1]=LoadImage(CopyPixmap(pix))
 
+End Function
 
+
+
+Function world_cluster_create_objects(x1,y1,x2,y2)
+
+  Local pix:TPixmap=CreatePixmap(world_cluster_dx,world_cluster_dy,PF_RGBA8888)
+  ClearPixels(pix)
 
   If world_cache_enabled=1 Then
 
@@ -490,10 +495,28 @@ Function world_cluster_create(x1,y1,x2,y2)
 
   'save image
 
-  world_cluster_img[x1,y1]=LoadImage(CopyPixmap(pix))
+  world_cluster_objects_img[x1,y1]=LoadImage(CopyPixmap(pix))
 
 
   End If
+
+
+End Function
+
+
+
+
+
+
+
+
+
+
+Function world_cluster_create(x1,y1,x2,y2)
+
+  world_cluster_create_ground(x1,y1,x2,y2)
+  world_cluster_create_objects(x1,y1,x2,y2)
+
 
 End Function
 
@@ -522,12 +545,40 @@ End Function
 
 
 
+Function world_cluster_draw_dynamic_ground(i,k,x,y)
+
+  SetColor time_color_r,time_color_g,time_color_b
+
+   Local x3=x-world_cluster_dx/2
+   Local y3=y-(world_cluster_dy-world_tilesize*world_cluster_size)
+
+  If world_cluster_ground_img[i,k] <> Null Then
+    DrawImage(world_cluster_ground_img[i,k],x3,y3)
+  End If
+
+End Function
 
 
-Function world_cluster_draw_static(i,k,x,y)
-  If world_cluster_img[i,k] <> Null Then
+Function world_cluster_draw_static_ground(i,k,x,y)
+
+  SetColor time_color_r,time_color_g,time_color_b
+
+   Local x3=x-world_cluster_dx/2
+   Local y3=y-(world_cluster_dy-world_tilesize*world_cluster_size)
+
+  If world_cluster_ground_img[i,k] <> Null Then
+    DrawImage(world_cluster_ground_img[i,k],x,y)
+  End If
+
+End Function
+
+
+
+
+Function world_cluster_draw_static_objects(i,k,x,y)
+  If world_cluster_objects_img[i,k] <> Null Then
     SetColor time_color_r,time_color_g,time_color_b
-    DrawImage(world_cluster_img[i,k],x,y)
+    DrawImage(world_cluster_objects_img[i,k],x,y)
     'DrawPixmap(world_cluster_pix[i,k],x,y)
   End If
 End Function
@@ -536,18 +587,7 @@ End Function
 
 
 
-Function world_cluster_draw_dynamic(i,k,x,y)
-
-  SetColor time_color_r,time_color_g,time_color_b
-
-   Local x3=x-world_cluster_dx/2
-   Local y3=y-(world_cluster_dy-world_tilesize*world_cluster_size)
-
-
-  If world_cluster_ground_img[i,k] <> Null Then
-    DrawImage(world_cluster_ground_img[i,k],x3,y3)
-  End If
-
+Function world_cluster_draw_dynamic_objects(i,k,x,y)
 
   For Local j=0 To world_cluster_size-1
   For Local l=0 To world_cluster_size-1
@@ -639,6 +679,8 @@ Function world_cluster_draw_screen()
 
   If world_cache_enabled=1 Then world_cluster_check()
 
+  For Local r=0 To 1
+
   For Local i=0 To world_x/world_cluster_size-1
   For Local k=0 To world_y/world_cluster_size-1
 
@@ -656,8 +698,12 @@ Function world_cluster_draw_screen()
 			Local x=wx/2+dx2+i*dx-k*dx
 			Local y=-wy/2+dy2+k*dy+i*dy
 
-      If x+j>=-world_cluster_dx And x+j<=wx+world_cluster_dx And y+l>=-world_cluster_dy And y+l<=wy+world_cluster_dy Then
-      	world_cluster_draw_dynamic(i,k,x+j,y+l)
+	    If x+j>=-world_cluster_dx And x+j<=wx+world_cluster_dx And y+l>=-world_cluster_dy And y+l<=wy+world_cluster_dy Then
+	      If r=0 Then
+	        world_cluster_draw_dynamic_ground(i,k,x+j,y+l)
+	      Else
+          world_cluster_draw_dynamic_objects(i,k,x+j,y+l)
+        End If
 	    End If
 
     Else
@@ -669,12 +715,18 @@ Function world_cluster_draw_screen()
 	    Local y=-wy/2+k*dy/2+i*dy/2
 
 	    If x+j>=-world_cluster_dx And x+j<=wx+world_cluster_dx And y+l>=-world_cluster_dy And y+l<=wy+world_cluster_dy Then
-	      world_cluster_draw_static(i,k,x+j,y+l)
+	      If r=0 Then
+	        world_cluster_draw_static_ground(i,k,x+j,y+l)
+	      Else
+          world_cluster_draw_static_objects(i,k,x+j,y+l)
+        End If
 	    End If
 	
     End If
 
   Next
+  Next
+
   Next
 
 End Function

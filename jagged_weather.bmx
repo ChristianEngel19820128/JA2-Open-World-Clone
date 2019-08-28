@@ -17,7 +17,7 @@ Global ch_rain:TChannel
 ch_rain=AllocChannel()
 SetChannelVolume(ch_rain,0.8)
 
-Global img_rain:TImage=LoadImage("gfx/weather/rain.png",0)
+Global img_rain:TImage=LoadImage("gfx/world/weather/rain.png",0)
 
 Const rain_max=150
 

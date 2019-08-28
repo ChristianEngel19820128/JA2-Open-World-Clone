@@ -65,6 +65,8 @@ Global group_action_s[group_max]
 
 'group single player actions
 
+Global group_player_selected[group_max]
+
 Global group_player[group_max,group_player_max]
 Global group_player_index[group_max,group_player_max]
 

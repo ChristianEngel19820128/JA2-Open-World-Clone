@@ -75,7 +75,6 @@ End Function
 
 Function player_turn_left(index)
 
-'suche die kürzeste richtung
 'ändere die align
 'verbrauche aktionspunkte
 'verbrauche energie
@@ -98,7 +97,6 @@ End Function
 
 Function player_turn_right(index)
 
-'suche die kürzeste richtung
 'ändere die align
 'verbrauche aktionspunkte
 'verbrauche energie
@@ -284,6 +282,130 @@ Function player_crawl(index)
 
 End Function
 
+
+
+Function player_w_walk(index)
+
+  If player_energy_ok(index,player_e_water_walk)=True Then
+
+    Local x=player_get_x(player_align[index])
+    Local y=player_get_y(player_align[index])
+
+    If player_action_started[index]=1 Then
+      player_action_started[index]=0
+      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
+
+      Print "start water walk to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
+
+    End If
+
+    If player_move(index)=1 Then
+
+      'ende erreicht
+
+      player_energy[index]:-player_e_water_walk
+
+      player_x[index]=0
+      player_y[index]=0
+
+      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
+      player_world_x[index]:+x
+      player_world_y[index]:+y
+      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
+
+      player_action_end[index]=1
+
+      Print "end water walk"
+
+    End If
+
+  End If
+
+End Function
+
+
+
+
+Function player_w_swim(index)
+
+  If player_energy_ok(index,player_e_water_swim)=True Then
+
+    Local x=player_get_x(player_align[index])
+    Local y=player_get_y(player_align[index])
+
+    If player_action_started[index]=1 Then
+      player_action_started[index]=0
+      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
+
+      Print "start water swim to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
+
+    End If
+
+    If player_move(index)=1 Then
+
+      'ende erreicht
+
+      player_energy[index]:-player_e_water_swim
+
+      player_x[index]=0
+      player_y[index]=0
+
+      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
+      player_world_x[index]:+x
+      player_world_y[index]:+y
+      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
+
+      player_action_end[index]=1
+
+      Print "end water swim"
+
+    End If
+
+  End If
+
+End Function
+
+
+
+
+Function player_w_swimfast(index)
+
+  If player_energy_ok(index,player_e_water_swimfast)=True Then
+
+    Local x=player_get_x(player_align[index])
+    Local y=player_get_y(player_align[index])
+
+    If player_action_started[index]=1 Then
+      player_action_started[index]=0
+      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
+
+      Print "start water swim fast to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
+
+    End If
+
+    If player_move(index)=1 Then
+
+      'ende erreicht
+
+      player_energy[index]:-player_e_water_swimfast
+
+      player_x[index]=0
+      player_y[index]=0
+
+      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
+      player_world_x[index]:+x
+      player_world_y[index]:+y
+      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
+
+      player_action_end[index]=1
+
+      Print "end water fast swim"
+
+    End If
+
+  End If
+
+End Function
 
 
 

@@ -25,10 +25,10 @@ Global snd_eject:TSound=LoadSound("sfx/weapons/Ejecting Magazine.wav")
 Global snd_bullet:TSound=LoadSound("sfx/weapons/ammo_casings_09.wav")
 
 
-Global snd_cal9mm:TSound=LoadSound("sfx/weapons/9mm.wav")
-Global snd_cal556x45mm:TSound=LoadSound("sfx/weapons/5,56.wav")
-Global snd_cal762x39mm:TSound=LoadSound("sfx/weapons/7,62WP.wav")
-Global snd_cal12x70:TSound=LoadSound("sfx/weapons/shotgun.wav")
+Global snd_cal_9mm:TSound=LoadSound("sfx/weapons/9mm.wav")
+Global snd_cal_556x45mm:TSound=LoadSound("sfx/weapons/5,56.wav")
+Global snd_cal_762x39mm:TSound=LoadSound("sfx/weapons/7,62WP.wav")
+Global snd_cal_12x70:TSound=LoadSound("sfx/weapons/shotgun.wav")
 
 
 Global snd_dry_fire:TSound=LoadSound("sfx/weapons/DRY FIRE 1.wav")
@@ -124,10 +124,10 @@ Local i=item_type_kaliber[item_type[item]]
 
 
   Select i
-    Case cal9mm PlaySound(snd_cal9mm)
-    Case cal556x45mm PlaySound(snd_cal556x45mm)
-    Case cal762x39mm PlaySound(snd_cal762x39mm)
-    Case cal12x70 PlaySound(snd_cal12x70)
+    Case cal_9mm PlaySound(snd_cal_9mm)
+    Case cal_556x45mm PlaySound(snd_cal_556x45mm)
+    Case cal_762x39mm PlaySound(snd_cal_762x39mm)
+    Case cal_12x70 PlaySound(snd_cal_12x70)
 
 
   End Select
@@ -147,7 +147,7 @@ Function playsnd_reload(i)
 	  Case group_rifle PlaySound(snd_rifle_reload)
 	  Case group_lmg PlaySound(snd_lmg_reload)
 	  Case group_shotgun PlaySound(snd_rifle_reload)
-	  Case group_magazin PlaySound(snd_chamber)	
+	  Case group_magazine PlaySound(snd_chamber)	
 	End Select
 
 End Function

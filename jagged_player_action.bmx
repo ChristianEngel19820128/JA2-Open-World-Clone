@@ -39,20 +39,25 @@ Local an=player_anim_transition[index]
 
     Case player_act_stand
 
-      Select player_position[index]
-        Case 0
-          player_anim_transition[index]=player_anim_stand
-        Case 1
-          player_anim_transition[index]=player_anim_crouch
-        Case 2
-          player_anim_transition[index]=player_anim_prone
-      End Select
+          Select world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]
+            Case c_water
+              player_anim_transition[index]=player_anim_w_stand
+            Case c_deep_water
+              player_anim_transition[index]=player_anim_w_tred
+            Case c_pool_water
+              player_anim_transition[index]=player_anim_w_tred
+            Default
+              Select player_position[index]
+                Case 0
+                  player_anim_transition[index]=player_anim_stand
+                Case 1
+                  player_anim_transition[index]=player_anim_crouch
+                Case 2
+                  player_anim_transition[index]=player_anim_prone
+              End Select
+          End Select
 
       'wenn waffe jeglicher art
-      'wenn liegend
-      'wenn gebückt
-      'wenn im wasser
-      'wenn im tiefen wasser
 
     Case player_act_pos_up
 
@@ -80,6 +85,12 @@ Local an=player_anim_transition[index]
       player_anim_transition[index]=player_anim_swat
     Case player_act_crawl
       player_anim_transition[index]=player_anim_crawl
+    Case player_act_w_walk
+      player_anim_transition[index]=player_anim_w_walk
+    Case player_act_w_swim
+      player_anim_transition[index]=player_anim_w_swim
+    Case player_act_w_swimfast
+      player_anim_transition[index]=player_anim_w_swimfast
 
   End Select
 
@@ -128,6 +139,15 @@ Function player_action_do(index)
 
         Case player_act_crawl
           player_crawl(index)
+
+        Case player_act_w_walk
+          player_w_walk(index)
+
+        Case player_act_w_swim
+          player_w_swim(index)
+
+        Case player_act_w_swimfast
+          player_w_swimfast(index)
 
       End Select
 

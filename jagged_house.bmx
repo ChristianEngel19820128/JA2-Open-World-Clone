@@ -1,8 +1,8 @@
 
 
 
-Global img_house_wall_0:TImage=LoadImage("gfx/house/wall_0_0.png")
-Global img_house_wall_1:TImage=LoadImage("gfx/house/wall_0_1.png")
+Global img_house_wall_0:TImage=LoadImage("gfx/world/house/wall_0_0.png")
+Global img_house_wall_1:TImage=LoadImage("gfx/world/house/wall_0_1.png")
 
 Const img_fence_max=3
 
@@ -12,11 +12,11 @@ Const c_woodfence=1
 Global img_house_fence_0:TImage[img_fence_max]
 Global img_house_fence_1:TImage[img_fence_max]
 
-img_house_fence_0[c_wirefence]=LoadImage("gfx/house/fence_0_0.png")
-img_house_fence_1[c_wirefence]=LoadImage("gfx/house/fence_0_1.png")
+img_house_fence_0[c_wirefence]=LoadImage("gfx/world/house/fence_0_0.png")
+img_house_fence_1[c_wirefence]=LoadImage("gfx/world/house/fence_0_1.png")
 
-img_house_fence_0[c_woodfence]=LoadImage("gfx/house/fence_1_0.png")
-img_house_fence_1[c_woodfence]=LoadImage("gfx/house/fence_1_1.png")
+img_house_fence_0[c_woodfence]=LoadImage("gfx/world/house/fence_1_0.png")
+img_house_fence_1[c_woodfence]=LoadImage("gfx/world/house/fence_1_1.png")
 
 
 
@@ -49,19 +49,19 @@ house_offx[7,1]=0
 house_offy[7,1]=-51
 
 
-Global img_house_floor:TPixmap=LoadPixmap("gfx/house/floor_0.png")
+Global img_house_floor:TPixmap=LoadPixmap("gfx/world/house/floor_0.png")
 
 Global roof_offx=0
 Global roof_offy=-51
 
-Global img_house_roof:TPixmap=LoadPixmap("gfx/house/roof_0.png")
+Global img_house_roof:TPixmap=LoadPixmap("gfx/world/house/roof_0.png")
 
 
-Global img_house_door_0:TImage=LoadImage("gfx/house/door_0_0.png")
-Global img_house_door_1:TImage=LoadImage("gfx/house/door_0_1.png")
+Global img_house_door_0:TImage=LoadImage("gfx/world/house/door_0_0.png")
+Global img_house_door_1:TImage=LoadImage("gfx/world/house/door_0_1.png")
 
-Global img_house_window_0:TImage=LoadImage("gfx/house/window_0_0.png")
-Global img_house_window_1:TImage=LoadImage("gfx/house/window_0_1.png")
+Global img_house_window_0:TImage=LoadImage("gfx/world/house/window_0_0.png")
+Global img_house_window_1:TImage=LoadImage("gfx/world/house/window_0_1.png")
 
 
 
