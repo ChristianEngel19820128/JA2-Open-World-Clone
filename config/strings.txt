@@ -115,3 +115,9 @@ Verfügbar
 Trupp Stoppen
 Ausdauer
 Messer/Macheten
+Angstfrei
+Hitzeempfindlich
+Kälteempfindlich
+Hitzeresistent
+Kälteresistent
+Amazone
