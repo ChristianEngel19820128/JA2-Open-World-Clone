@@ -30,15 +30,19 @@ Global gui_main_data_dy=wy
 Global gui_inventar_open=0
 
 Global gui_inventar_x=0
-Global gui_inventar_y=wy-ImageHeight(img_main_data)-25-ImageHeight(img_slot_big)*player_inv_max
+Global gui_inventar_y=wy-ImageHeight(img_main_data)-150-ImageHeight(img_slot_big)*player_inv_max
 
-Global gui_inventar_dx=ImageWidth(img_slot_big)*item_slot_max+1
-Global gui_inventar_dy=wy-ImageHeight(img_main_data)
+Global gui_inventar_dx=ImageWidth(img_slot_tiny)*item_slot_max*item_capacity_max+ImageWidth(img_slot_big)
+Global gui_inventar_dy=wy-150-ImageHeight(img_main_data)
 
 Global gui_inventar_minimized_dx=ImageWidth(img_slot_minimized)
 
-Global gui_hand_x=0
-Global gui_hand_y=0
-Global gui_hand_dx=0
-Global gui_hand_dy=0
+Global gui_hand_open=0
 
+Global gui_hand_x=0
+Global gui_hand_y=wy-ImageHeight(img_main_data)-25-ImageHeight(img_slot_big)*player_hand_max
+
+Global gui_hand_dx=ImageWidth(img_slot_big)
+Global gui_hand_dy=wy-ImageHeight(img_main_data)-25
+
+Global gui_hand_minimized_dx=ImageWidth(img_slot_minimized)

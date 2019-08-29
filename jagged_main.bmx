@@ -86,7 +86,7 @@ Include "jagged_light.bmx"
 Include "jagged_house.bmx"
 Include "jagged_world.bmx"
 Include "jagged_player.bmx"
-Include "jagged_items.bmx"
+Include "jagged_item.bmx"
 Include "jagged_anim.bmx"
 Include "jagged_laptop.bmx"
 
@@ -131,6 +131,7 @@ Function main_init()
   strings_load()
   soldier_load()
   soldier_custom_load()
+  item_types_load()
   merc_anim_load()
   tiles_load()
   house_load()
@@ -223,6 +224,7 @@ Function main_do()
       gui_minimap_draw()
       gui_maindata_group_draw()
       gui_inventar_draw()
+      gui_hand_draw()
 
   End Select
 

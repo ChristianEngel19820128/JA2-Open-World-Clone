@@ -319,7 +319,7 @@ Function player_move_set(i,index,p2,action)
   Local g1=world_ground_type[player_list_close_x[i],player_list_close_y[i],player_world_z[index]]
   Local g2=world_ground_type[player_list_close_x[player_list_close_p[i]],player_list_close_y[player_list_close_p[i]],player_world_z[index]]
 
-  If g1=c_water And g2=c_water Then
+  If (g1=c_water And g2=c_water) Or (g1=c_deep_water And g2=c_water) Or (g1=c_water And g2=c_deep_water) Then
 
     player_tar_add(index,player_list_close_x[i],player_list_close_y[i],player_act_w_walk)
 

@@ -3,7 +3,7 @@ Function group_new(x,y,fraction)
   Local i=0
   Local f=False
 
-  If fraction>0 Or (fraction=0 And group_count<group_count_max) Then
+  If fraction>0 Or (fraction=fraction_player And group_count<group_count_max) Then
   While f=False And i<group_max
 
     If group[i]>0 Then
@@ -26,7 +26,7 @@ Function group_new(x,y,fraction)
         group_player_role[i,k]=0
       Next
 
-      If fraction=0 Then group_count:+1
+      If fraction=fraction_player Then group_count:+1
 
       group_player_count[i]=0
 
@@ -42,7 +42,7 @@ End Function
 
 Function group_del(g)
   group[g]=0
-  If group_fraction[g]=0 Then group_count:-1
+  If group_fraction[g]=fraction_player Then group_count:-1
 End Function
 
 

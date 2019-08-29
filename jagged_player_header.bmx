@@ -8,30 +8,29 @@ Const player_dualhand=2
 Global player_inv_x=309
 Global player_inv_y=wy-200
 
-Const player_inv_max=15
+Const player_inv_max=14
 
-Const player_inv_none=0
-Const player_inv_head=1
-Const player_inv_face=2
-Const player_inv_eyes=3
-Const player_inv_mouth=4
-Const player_inv_chest=5
-Const player_inv_back=6
-Const player_inv_torso=7
-Const player_inv_belt=8
-Const player_inv_legs=9
-Const player_inv_knees=10
-Const player_inv_foot=11
-Const player_inv_holster=12
-Const player_inv_shoulders=13
-Const player_inv_wrist=14
+Const player_inv_none=-1
+Const player_inv_head=0
+Const player_inv_face=1
+Const player_inv_eyes=2
+Const player_inv_mouth=3
+Const player_inv_chest=4
+Const player_inv_back=5
+Const player_inv_torso=6
+Const player_inv_belt=7
+Const player_inv_legs=8
+Const player_inv_knees=9
+Const player_inv_foot=10
+Const player_inv_holster=11
+Const player_inv_shoulders=12
+Const player_inv_wrist=13
 
 
 Const player_hand_max=2
 
+Const player_hand_right=0
 Const player_hand_left=1
-Const player_hand_right=2
-
 
 
 Const player_act_stand=0

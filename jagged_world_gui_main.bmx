@@ -36,13 +36,11 @@ Function gui_maindata_group_draw()
 	
 	    End If
 	
+	    gui_maindata_draw(group_player_index[group_selected,i],gui_main_data_x+i*ImageWidth(img_main_data),gui_main_data_y)
+	
 	  Else
 	    DrawImage(img_main_data,gui_main_data_x+i*ImageWidth(img_main_data),gui_main_data_y)
 	  End If
-
-    If group_player[group_selected,i]=1 Then
-      gui_maindata_draw(group_player_index[group_selected,i],gui_main_data_x+i*ImageWidth(img_main_data),gui_main_data_y)
-    End If
 
   Next
 
@@ -152,7 +150,7 @@ End Function
 Function gui_slot_zustand_draw(k,x,y)
 
   SetColor(155,255,55)
-  DrawRect(x+75,y+6+40,3,40*item_zustand[k]/100)
+  DrawRect(x+5,y+6+40,3,-40*item_zustand[k]/100)
 
 End Function
 
@@ -160,6 +158,8 @@ End Function
 
 
 Function gui_slot_item_draw(c,i,k,x,y)
+
+  gui_slot_zustand_draw(k,x,y)
 
   Select c
     Case 1
@@ -172,7 +172,7 @@ Function gui_slot_item_draw(c,i,k,x,y)
       x:+80
   End Select
 
-  gui_slot_zustand_draw(k,x,y)
+  y:+25
 
   SetColor(255,255,255)
   DrawImage(item_type_img[i],x,y)
@@ -187,9 +187,10 @@ Function gui_inventar_draw()
 
 
 If player_select_count>0 Then
-If player_select_main>0 Then
+If player_select_main>=0 Then
 If player_select[player_select_main]=1 Then
 Local p=player_select_index[player_select_main]
+
 If player[p]>0 Then
 
     If gui_inventar_open=1 Then
@@ -210,16 +211,16 @@ If player[p]>0 Then
 		        Local it=item_type[ii]
 		
 		       'inv item zeichnen
-		        'DrawImage(item_type_img[it],gui_inventar_x+78,gui_inventar_y+24+i*50)
 		        gui_slot_item_draw(4,it,ii,gui_inventar_x,gui_inventar_y+i*ImageHeight(img_slot_big))
 		
 		        If item_type_slots[it]>0 Then
 		
+				      Local x1=10
+				
 		          'slots zeichnen
-		          For Local k=0 To item_slot_max-1
+		          For Local k=0 To item_type_slots[it]-1
 		
 		            Local c=item_type_slot_capacity[it,k]
-		            Local x1=0
 		
 		            For Local l=0 To item_capacity_max-1
 		
@@ -238,7 +239,7 @@ If player[p]>0 Then
 		                  gui_slot_draw(item_type_room[iit],gui_inventar_x+ImageWidth(img_slot_big)+x1,gui_inventar_y+i*ImageHeight(img_slot_big))
 		                  gui_slot_item_draw(item_type_room[iit],iit,iii,gui_inventar_x+ImageWidth(img_slot_big)+x1,gui_inventar_y+i*ImageHeight(img_slot_big))
 		
-		                  x1:+50+item_type_room[iit]*25
+		                  x1:+50+item_type_room[iit]*25+10
 		                  
 		                End If
 		
@@ -252,7 +253,7 @@ If player[p]>0 Then
 		
 		              Local c1=gui_slot_draw(c,gui_inventar_x+ImageWidth(img_slot_big)+x1,gui_inventar_y+i*ImageHeight(img_slot_big))
 		              c:-c1
-		              x1:+50+c1*25
+		              x1:+50+c1*25+10
 		
 		            Wend
 		
@@ -281,7 +282,9 @@ If player[p]>0 Then
 		      SetColor(255,255,255)
 		      DrawImage(img_slot_minimized,gui_inventar_x,gui_inventar_y+i*ImageHeight(img_slot_minimized))
 		
-		      gui_slot_zustand_draw(player_inventory_index[p,i],gui_inventar_x,gui_inventar_y+i*ImageHeight(img_slot_minimized))
+		      If player_inventory[p,i]>0 Then
+		        gui_slot_zustand_draw(player_inventory_index[p,i],gui_inventar_x,gui_inventar_y+i*ImageHeight(img_slot_minimized))
+		      End If
 
 		    Next
 		
@@ -301,6 +304,112 @@ End Function
 
 Function gui_hand_draw()
 
+If player_select_count>0 Then
+If player_select_main>=0 Then
+If player_select[player_select_main]=1 Then
+Local p=player_select_index[player_select_main]
+
+If player[p]>0 Then
+
+    If gui_hand_open=1 Then
+		
+	    If mouseover(gui_hand_x,gui_hand_y,gui_hand_dx,gui_hand_dy)=False Then
+	      gui_hand_open=0
+	    Else
+	
+		    'alle inv slots und items zeichnen
+		    For Local i=0 To player_hand_max-1
+		
+		      'inv slot zeichnen
+		      DrawImage(img_slot_big,gui_hand_x,gui_hand_y+i*ImageHeight(img_slot_big))
+		
+		      If player_hand[p,i]>0 Then
+		
+		        Local ii=player_hand_index[p,i]
+		        Local it=item_type[ii]
+		
+		       'inv item zeichnen
+		        gui_slot_item_draw(4,it,ii,gui_hand_x,gui_hand_y+i*ImageHeight(img_slot_big))
+		
+		        If item_type_slots[it]>0 Then
+		
+				      Local x1=10
+				
+		          'slots zeichnen
+		          For Local k=0 To item_type_slots[it]-1
+		
+		            Local c=item_type_slot_capacity[it,k]
+		
+		            For Local l=0 To item_capacity_max-1
+		
+		              If item_slot[ii,k,l]>0 Then
+		
+		                'wenn item dann berechne den verbrauchten platz
+		                'zeichne den slot
+		
+		                Local iii=item_slot_index[ii,k,l]
+		                Local iit=item_type[iii]
+		
+		                If item[iii]>0 Then
+		
+		                  c:-item_type_room[iit]
+		
+		                  gui_slot_draw(item_type_room[iit],gui_hand_x+ImageWidth(img_slot_big)+x1,gui_hand_y+i*ImageHeight(img_slot_big))
+		                  gui_slot_item_draw(item_type_room[iit],iit,iii,gui_hand_x+ImageWidth(img_slot_big)+x1,gui_hand_y+i*ImageHeight(img_slot_big))
+		
+		                  x1:+50+item_type_room[iit]*25+10
+		                  
+		                End If
+		
+		              End If
+		
+		            Next
+		
+		            'rest zeichnen
+		
+		            While c>0
+		
+		              Local c1=gui_slot_draw(c,gui_hand_x+ImageWidth(img_slot_big)+x1,gui_hand_y+i*ImageHeight(img_slot_big))
+		              c:-c1
+		              x1:+50+c1*25+10
+		
+		            Wend
+		
+		          Next
+		
+		        End If
+		
+		      End If
+		
+		    Next
+	
+	    End If
+	
+	  Else
+	
+	    If mouseover(gui_hand_x,gui_hand_y,gui_hand_minimized_dx,gui_hand_dy)=True Then
+	      gui_hand_open=1
+	    Else
+	
+	      For Local i=0 To player_hand_max-1
+	
+			    SetColor(255,255,255)
+		      DrawImage(img_slot_minimized,gui_hand_x,gui_hand_y+i*ImageHeight(img_slot_minimized))
+		
+		      If player_hand[p,i]>0 Then
+		        gui_slot_zustand_draw(player_hand_index[p,i],gui_hand_x,gui_hand_y+i*ImageHeight(img_slot_minimized))
+		      End If
+		
+		    Next
+		
+	    End If
+	
+    End If
+
+End If
+End If
+End If
+End If
 
 End Function
 

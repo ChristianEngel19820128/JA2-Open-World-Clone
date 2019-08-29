@@ -2,8 +2,8 @@ Strict
 
 SeedRnd MilliSecs()
 
-Global wx=1600  '1280'1600'1920
-Global wy=900   '720'900'1080
+Global wx=1900  '1280'1600'1920
+Global wy=1000   '720'900'1080
 Global wd=0
 Global wh=0
 

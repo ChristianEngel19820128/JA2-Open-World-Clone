@@ -245,11 +245,11 @@ Function player_selected_do()
           player_selected_action(i)
         End If
       Next
-      mouse=0
+
     End If
     If mouse=2 Then
       'aim aber für wen? eigentlich nur im runden modus
-      mouse=0
+
     End If
     player_selected_keys()
   End If

@@ -20,7 +20,7 @@ Const fraction_bandit=4
 
 
 Const group_max=128
-Global group_count_max=10
+Const group_count_max=10
 Const group_player_max=8
 
 Const mx_waypoints=16
