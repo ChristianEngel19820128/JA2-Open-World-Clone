@@ -117,6 +117,25 @@ Global snd_cricketloop2:TSound=LoadSound("sfx/ambient/CRICKETY_LOOP2.wav")
 
 
 
+
+
+Function playsnd(snd:TSound,ch:TChannel=Null)
+
+  If snd <> Null Then
+    If ch <> Null Then
+      PlaySound(snd,ch)
+    Else
+      PlaySound(snd)
+    End if
+  End If
+
+End Function
+
+
+
+
+
+
 Function playsnd_shot(item)
 
 Local i=item_type_kaliber[item_type[item]]
@@ -124,10 +143,10 @@ Local i=item_type_kaliber[item_type[item]]
 
 
   Select i
-    Case cal_9mm PlaySound(snd_cal_9mm)
-    Case cal_556x45mm PlaySound(snd_cal_556x45mm)
-    Case cal_762x39mm PlaySound(snd_cal_762x39mm)
-    Case cal_12x70 PlaySound(snd_cal_12x70)
+    Case cal_9mm playsnd(snd_cal_9mm)
+    Case cal_556x45mm playsnd(snd_cal_556x45mm)
+    Case cal_762x39mm playsnd(snd_cal_762x39mm)
+    Case cal_12x70 playsnd(snd_cal_12x70)
 
 
   End Select
@@ -139,15 +158,15 @@ End Function
 Function playsnd_reload(i)
 
 	Select i
-	  Case group_pistol PlaySound(snd_pistol_reload)
-	  Case group_revolver PlaySound(snd_revolver_reload)
-	  Case group_mp PlaySound(snd_smg_reload)
-	  Case group_mpk PlaySound(snd_smg_reload)
-      Case group_smg PlaySound(snd_smg_reload)
-	  Case group_rifle PlaySound(snd_rifle_reload)
-	  Case group_lmg PlaySound(snd_lmg_reload)
-	  Case group_shotgun PlaySound(snd_rifle_reload)
-	  Case group_magazine PlaySound(snd_chamber)	
+	  Case group_pistol playsnd(snd_pistol_reload)
+	  Case group_revolver playsnd(snd_revolver_reload)
+	  Case group_mp playsnd(snd_smg_reload)
+	  Case group_mpk playsnd(snd_smg_reload)
+      Case group_smg playsnd(snd_smg_reload)
+	  Case group_rifle playsnd(snd_rifle_reload)
+	  Case group_lmg playsnd(snd_lmg_reload)
+	  Case group_shotgun playsnd(snd_rifle_reload)
+	  Case group_magazine playsnd(snd_chamber)	
 	End Select
 
 End Function
@@ -155,14 +174,14 @@ End Function
 Function playsnd_lnl(i)
 
 	Select i
-	  Case group_pistol PlaySound(snd_pistol_lnl)
-	  Case group_revolver PlaySound(snd_revolver_lnl)
-	  Case group_mp PlaySound(snd_smg_lnl)
-	  Case group_mpk PlaySound(snd_smg_lnl)
-      Case group_smg PlaySound(snd_smg_lnl)
-	  Case group_rifle PlaySound(snd_rifle_lnl)
-	  Case group_lmg PlaySound(snd_lmg_lnl)
-	  Case group_shotgun PlaySound(snd_rifle_lnl)	
+	  Case group_pistol playsnd(snd_pistol_lnl)
+	  Case group_revolver playsnd(snd_revolver_lnl)
+	  Case group_mp playsnd(snd_smg_lnl)
+	  Case group_mpk playsnd(snd_smg_lnl)
+      Case group_smg playsnd(snd_smg_lnl)
+	  Case group_rifle playsnd(snd_rifle_lnl)
+	  Case group_lmg playsnd(snd_lmg_lnl)
+	  Case group_shotgun playsnd(snd_rifle_lnl)	
 	End Select
 
 End Function

@@ -118,12 +118,62 @@ End Function
 
 
 
+
+Function player_moveing(index,e)
+
+  Local x=player_get_x(player_align[index])
+  Local y=player_get_y(player_align[index])
+
+  If world_ambient_type[player_world_x[index]+x,player_world_y[index]+y,player_world_z[index]]>0 Then e:+4
+
+  If player_energy_ok(index,e)=True Then
+
+    If player_action_started[index]=1 Then
+      player_action_started[index]=0
+      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
+
+      Print "start move to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
+
+    End If
+
+    If player_move(index)=1 Then
+
+      'ende erreicht
+
+      player_energy[index]:-e
+
+      player_x[index]=0
+      player_y[index]=0
+
+      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
+      player_world_x[index]:+x
+      player_world_y[index]:+y
+      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
+
+      player_action_end[index]=1
+
+      Print "end move"
+
+    End If
+
+  End If
+
+End Function
+
+
+
+
+
+
 Function player_walk(index)
 
-  If player_energy_ok(index,player_e_walk)=True Then
+  Local x=player_get_x(player_align[index])
+  Local y=player_get_y(player_align[index])
 
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
+  Local e=player_e_walk
+  If world_ambient_type[player_world_x[index]+x,player_world_y[index]+y,player_world_z[index]]>0 Then e:+4
+
+  If player_energy_ok(index,player_e_walk)=True Then
 
     If player_action_started[index]=1 Then
       player_action_started[index]=0
@@ -137,7 +187,7 @@ Function player_walk(index)
 
       'ende erreicht
 
-      player_energy[index]:-player_e_walk
+      player_energy[index]:-e
 
       player_x[index]=0
       player_y[index]=0

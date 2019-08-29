@@ -10,9 +10,10 @@ Function player_select_new(index)
       player_select_index[i]=index
 
       player_select_count:+1
+      player_select_main=i
 
       player_selected[index]=1
-      player_select_pos[index]=i
+      player_selected_pos[index]=i
 
       f=True
       Return i
@@ -26,6 +27,7 @@ Function player_select_del(i)
   player_selected[player_select_index[i]]=0
   player_select[i]=0
   If player_select_count>0 Then player_select_count:-1
+  player_select_main=player_select_find_main()
 End Function
 
 Function player_select_del_all()
@@ -35,6 +37,26 @@ Function player_select_del_all()
   Next
   player_select_count=0
 End Function
+
+
+
+Function player_select_find_main()
+  Local i=0
+  Local f=False
+  While f=False And i<player_select_max
+    If player_select[i]=0 Then
+      i:+1
+    Else
+
+        f=True
+        Return i
+
+    End If
+  Wend
+  Return -1
+End Function
+
+
 
 
 Function player_select_find(index)
@@ -63,7 +85,7 @@ Function player_selection_do()
         If shift=1 And mouse=1 Then
           If player_selected[world_obj_index[mouse_world_x,mouse_world_y,mouse_world_z]]=1 Then
             'söldner herrausnehmen
-            player_select_del(player_select_pos[world_obj_index[mouse_world_x,mouse_world_y,mouse_world_z]])
+            player_select_del(player_selected_pos[world_obj_index[mouse_world_x,mouse_world_y,mouse_world_z]])
           Else
             'söldner hinzufügen
             player_select_new(world_obj_index[mouse_world_x,mouse_world_y,mouse_world_z])
@@ -99,7 +121,7 @@ Function player_selected_action(i)
 
   Local action
 
-
+  If mouse_world=1 Then
 
   If strg=1 And mouse=1 Then
     'objekt aktion ausführen
@@ -122,7 +144,7 @@ Function player_selected_action(i)
           action=player_act_crawl
       End Select
     End If
-
+    mouse=0
   Else
 
     If shift=1 And mouse=1 Then
@@ -131,7 +153,7 @@ Function player_selected_action(i)
         If world_obj_type[mouse_world_x,mouse_world_y,mouse_world_z]=0 Then
           action=player_act_run
         End If
-
+        mouse=0
     Else
 
       If mouse=1 Then
@@ -148,7 +170,7 @@ Function player_selected_action(i)
           End Select
 
         End If
-
+        mouse=0
       End If
 
     End If
@@ -167,6 +189,8 @@ Function player_selected_action(i)
     Else
       Print "move to x="+mouse_world_x+" y="+mouse_world_y
     End If
+
+  End If
 
   End If
 

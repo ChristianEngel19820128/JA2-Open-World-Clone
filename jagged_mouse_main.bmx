@@ -119,13 +119,15 @@ Function mouse_get_in_world()
 
   mouse_world=0
 
-  If mouseover(main_data_x,main_data_y,main_data_dx,main_data_dy) = False Then
-  If gui_inventar=False Or mouseover(inventar_x,main_data_y,inventar_dx,main_data_dy) = False Then
+  If mouseover(gui_main_data_x,gui_main_data_y,gui_main_data_dx,gui_main_data_dy) = False Then
+  If (gui_inventar_open=1 And mouseover(gui_inventar_x,gui_inventar_y,gui_inventar_dx,gui_inventar_dy) = False) Or (gui_inventar_open=0 And mouseover(gui_inventar_x,gui_inventar_y,gui_inventar_minimized_dx,gui_inventar_dy) = False) Then
+  If mouseover(gui_hand_x,gui_hand_y,gui_hand_dx,gui_hand_dy) = False Then
 
     mouse_for_each_cluster()
 
   End If
-  End if
+  End If
+  End If
 
 End Function
 

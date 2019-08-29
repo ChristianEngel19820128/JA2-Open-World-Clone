@@ -52,7 +52,7 @@ Function rain_start()
     rain_z[k]=k*128
   Next
 
-  PlaySound(snd_rain0,ch_rain)
+  playsnd(snd_rain0,ch_rain)
 
 End Function
 
@@ -206,19 +206,19 @@ End Function
 Function wind_play()
 
         Select wind
-          'Case 1 PlaySound(snd_wind2,ch_wind)
-          'Case 2 PlaySound(snd_wind1,ch_wind)
-          Case 1 PlaySound(snd_wind_123,ch_wind)
-          'Case 2 PlaySound(snd_wind_1234,ch_wind)
+          'Case 1 playsnd(snd_wind2,ch_wind)
+          'Case 2 playsnd(snd_wind1,ch_wind)
+          Case 1 playsnd(snd_wind_123,ch_wind)
+          'Case 2 playsnd(snd_wind_1234,ch_wind)
 
-          'Case 2 PlaySound(snd_wind3,ch_wind)
-          'Case 3 PlaySound(snd_wind12,ch_wind)
-          'Case 4 PlaySound(snd_wind11,ch_wind)
-          'Case 5 PlaySound(snd_wind5,ch_wind)
-          'Case 6 PlaySound(snd_wind6,ch_wind)
-          'Case 7 PlaySound(snd_sturm1,ch_wind)
-          'Case 8 PlaySound(snd_sturm3,ch_wind)
-          'Case 9 PlaySound(snd_sturm2,ch_wind)
+          'Case 2 playsnd(snd_wind3,ch_wind)
+          'Case 3 playsnd(snd_wind12,ch_wind)
+          'Case 4 playsnd(snd_wind11,ch_wind)
+          'Case 5 playsnd(snd_wind5,ch_wind)
+          'Case 6 playsnd(snd_wind6,ch_wind)
+          'Case 7 playsnd(snd_sturm1,ch_wind)
+          'Case 8 playsnd(snd_sturm3,ch_wind)
+          'Case 9 playsnd(snd_sturm2,ch_wind)
        End Select
   
 End Function
@@ -261,37 +261,37 @@ Function ambient_play()
 
     If Rand(0,100)<5 Then
       Select Rand(0,5)
-        Case 0 PlaySound(snd_owl1,ch_ambient)
-        Case 1 PlaySound(snd_owl2,ch_ambient)
-        Case 2 PlaySound(snd_owl3,ch_ambient)
-        Case 3 PlaySound(snd_nightbird1,ch_ambient)
-        Case 4 PlaySound(snd_nightbird3,ch_ambient)
-        Case 5 PlaySound(snd_tf1,ch_ambient)
+        Case 0 playsnd(snd_owl1,ch_ambient)
+        Case 1 playsnd(snd_owl2,ch_ambient)
+        Case 2 playsnd(snd_owl3,ch_ambient)
+        Case 3 playsnd(snd_nightbird1,ch_ambient)
+        Case 4 playsnd(snd_nightbird3,ch_ambient)
+        Case 5 playsnd(snd_tf1,ch_ambient)
 
       End Select
     End If
 
-    If Rand(0,100)<35 Then PlaySound(snd_cricket,ch_ambient)
-    If Rand(0,100)<15 Then PlaySound(snd_cricket1,ch_ambient)
-    If Rand(0,100)<5 Then PlaySound(snd_cricket2,ch_ambient)
+    If Rand(0,100)<35 Then playsnd(snd_cricket,ch_ambient)
+    If Rand(0,100)<15 Then playsnd(snd_cricket1,ch_ambient)
+    If Rand(0,100)<5 Then playsnd(snd_cricket2,ch_ambient)
 
   Else
 
     If Rand(0,100)<5 Then
       Select Rand(0,9)
-        Case 0 PlaySound(snd_crow2,ch_ambient)
-        Case 1 PlaySound(snd_crow3,ch_ambient)
-        Case 2 PlaySound(snd_crow_fly,ch_ambient)
-        Case 0 PlaySound(snd_tf2,ch_ambient)
-        Case 1 PlaySound(snd_tf3,ch_ambient)
-        Case 2 PlaySound(snd_tf4,ch_ambient)
-        Case 3 PlaySound(snd_tf6,ch_ambient)
-        Case 4 PlaySound(snd_tf7,ch_ambient)
-        Case 5 PlaySound(snd_tf8,ch_ambient)
-        Case 6 PlaySound(snd_jungle1,ch_ambient)
-        Case 7 PlaySound(snd_jungle2,ch_ambient)
-        Case 8 PlaySound(snd_jungle3,ch_ambient)
-        Case 9 PlaySound(snd_jungle4,ch_ambient)
+        Case 0 playsnd(snd_crow2,ch_ambient)
+        Case 1 playsnd(snd_crow3,ch_ambient)
+        Case 2 playsnd(snd_crow_fly,ch_ambient)
+        Case 0 playsnd(snd_tf2,ch_ambient)
+        Case 1 playsnd(snd_tf3,ch_ambient)
+        Case 2 playsnd(snd_tf4,ch_ambient)
+        Case 3 playsnd(snd_tf6,ch_ambient)
+        Case 4 playsnd(snd_tf7,ch_ambient)
+        Case 5 playsnd(snd_tf8,ch_ambient)
+        Case 6 playsnd(snd_jungle1,ch_ambient)
+        Case 7 playsnd(snd_jungle2,ch_ambient)
+        Case 8 playsnd(snd_jungle3,ch_ambient)
+        Case 9 playsnd(snd_jungle4,ch_ambient)
 
       End Select
     End If
@@ -303,10 +303,10 @@ Function ambient_play()
      If gewitter>0 Then
        If Rand(0,100)<15 Then
             Select Rand(0,3)
-              Case 0 PlaySound(snd_thunder1,ch_ambient)
-              Case 1 PlaySound(snd_thunder2,ch_ambient)
-              Case 2 PlaySound(snd_thunder3,ch_ambient)
-              Case 3 PlaySound(snd_thunder4,ch_ambient)
+              Case 0 playsnd(snd_thunder1,ch_ambient)
+              Case 1 playsnd(snd_thunder2,ch_ambient)
+              Case 2 playsnd(snd_thunder3,ch_ambient)
+              Case 3 playsnd(snd_thunder4,ch_ambient)
             End Select
         End If
       End If

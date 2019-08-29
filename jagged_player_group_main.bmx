@@ -30,8 +30,6 @@ Function group_new(x,y,fraction)
 
       group_player_count[i]=0
 
-      group_player_selected[i]=0
-
       f=True
       Return i
     End If

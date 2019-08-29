@@ -10,7 +10,7 @@ Include "jagged_player_movement.bmx"
 Include "jagged_player_action.bmx"
 
 
-Include "jagged_player_pathfinding_short.bmx"
+Include "jagged_player_pathfinding.bmx"
 Include "jagged_player_pathfinding_fast.bmx"
 
 

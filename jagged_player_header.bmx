@@ -244,14 +244,16 @@ Const player_tar_max=50
 
 'player selection
 
-Const player_select_max=8
+Const player_select_max=10
 
 Global player_select[player_select_max]
 Global player_select_index[player_select_max]
 Global player_select_count
+Global player_select_main
 
 Global player_selected[player_max]
-Global player_select_pos[player_max]
+Global player_selected_pos[player_max]
+
 
 
 
