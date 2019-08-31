@@ -22,6 +22,7 @@ Function loadbar(t:String,i=0,m=1,e=True)
 	SetClsColor(0,0,0)
 	Cls
 	SetColor(255,255,255)
+	
 	Local s:String="Hier könnte ein Tipp stehen!"
 	DrawText(s,wx/2-TextWidth(s)/2,wy/2-TextHeight(s)/2)
 	DrawText(t,10,wy-60)

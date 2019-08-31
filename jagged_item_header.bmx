@@ -230,8 +230,8 @@ Global item_type[item_max]
 Global item_location[item_max]
 Global item_location_index[item_max]
 Global item_location_pos[item_max]
-
-
+Global item_location_pos_1[item_max]
+Global item_location_pos_2[item_max]
 
 Global item_world_x[item_max]
 Global item_world_y[item_max]

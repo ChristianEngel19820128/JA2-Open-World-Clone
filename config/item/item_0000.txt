@@ -13,7 +13,7 @@ back
 <used Space>
 25
 <used Room>
-0
+5
 <is Supressed>
 0
 <Addon Supressor>

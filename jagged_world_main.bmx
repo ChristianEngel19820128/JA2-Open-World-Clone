@@ -187,7 +187,7 @@ End Function
 
 
 
-Function world_gen_margins()
+Function world_gen_margins(c_type_1,c_type_2)
 
 
 Local nw
@@ -195,11 +195,15 @@ Local ne
 Local sw
 Local se
 
+
+
   For Local x=0 To world_x-1
   For Local y=0 To world_y-1
   For Local z=0 To world_z-1
 
-   If world[x,y,z]=1 And world_ground_type[x,y,z]<>c_earth Then
+   If world_margin_type[x,y,z]=0 Then
+
+   If world[x,y,z]=1 And world_ground_type[x,y,z]=c_type_2 Then
 
     nw=False
     ne=False
@@ -207,7 +211,7 @@ Local se
     se=False
 
     If x-1>=0 Then
-      If world[x-1,y,z]=1 And world_ground_type[x-1,y,z]=c_earth Then
+      If world[x-1,y,z]=1 And world_ground_type[x-1,y,z]=c_type_1 Then
         nw=True
       End If
     Else
@@ -215,7 +219,7 @@ Local se
     End If
 
     If x+1<=world_x-1 Then
-      If world[x+1,y,z]=1 And world_ground_type[x+1,y,z]=c_earth Then
+      If world[x+1,y,z]=1 And world_ground_type[x+1,y,z]=c_type_1 Then
         se=True
       End If
     Else
@@ -223,7 +227,7 @@ Local se
     End If
 
     If y-1>=0 Then
-      If world[x,y-1,z]=1 And world_ground_type[x,y-1,z]=c_earth Then
+      If world[x,y-1,z]=1 And world_ground_type[x,y-1,z]=c_type_1 Then
         ne=True
       End If
     Else
@@ -231,7 +235,7 @@ Local se
     End If
 
     If y+1<=world_y-1 Then
-      If world[x,y+1,z]=1 And world_ground_type[x,y+1,z]=c_earth Then
+      If world[x,y+1,z]=1 And world_ground_type[x,y+1,z]=c_type_1 Then
         sw=True
       End If
     Else
@@ -318,11 +322,12 @@ Local se
 
 
     If (nw=True Or ne=True Or sw=True Or se=True) And (nw=False Or ne=False Or sw=False Or se=False) Then
-      world_margin_type[x,y,z]=c_earth
+      world_margin_type[x,y,z]=c_type_1
     Else
       world_margin_type[x,y,z]=0
     End If
 
+    world_margin_index[x,y,z]=0
 
     If nw=True And ne=True And sw=False And se=False Then world_margin_index[x,y,z]=margin_nw_ne
     If nw=False And ne=True And sw=False And se=True Then world_margin_index[x,y,z]=margin_ne_se
@@ -350,6 +355,7 @@ Local se
     End If
 
 
+   End If
    End If
 
   Next
@@ -455,6 +461,187 @@ Function world_gen_field(c_type,runs,radius)
   Next
   Next
   Next
+
+
+
+End Function
+
+
+
+
+
+
+Function world_gen_dbl_field(c_type_1,c_type_2,runs,radius)
+
+	For Local i=1 To runs
+	
+	  For Local x=0 To world_x-1
+	  For Local y=0 To world_y-1
+	  For Local z=0 To world_z-1
+	
+	    Local r=Rand(1,radius)
+	
+	    If world[x,y,z]=1 And world_ground_type[x,y,z]=c_type_1 Then
+	
+	      For Local r1=-r To r
+	      For Local r2=-r To r
+	
+	        If x+r1>=0 And x+r1<=world_x-1 And y+r2>=0 And y+r2<=world_y-1 And (Rand(0,r+1)>Abs(r1) And Rand(0,r+1)>Abs(r2)) Then
+	          If world[x+r1,y+r2,z]=1 And world_ground_type[x+r1,y+r2,z]<>c_type_1 And world_ground_type[x+r1,y+r2,z]<>c_type_2 Then
+	            If Abs(r1)<=Floor(r/1.2) And Abs(r2)<=Floor(r/1.2) Then
+	              world_ground_type[x+r1,y+r2,z]=-1
+              Else
+	              world_ground_type[x+r1,y+r2,z]=-2
+	            End If
+	          End If
+	        End If
+	
+	      Next
+	      Next
+
+	    Else
+	
+		    If world[x,y,z]=1 And world_ground_type[x,y,z]=c_type_2 Then
+				
+		      Local r=Rand(1,radius)
+		
+		      For Local r1=-r To r
+		      For Local r2=-r To r
+		
+		        If x+r1>=0 And x+r1<=world_x-1 And y+r2>=0 And y+r2<=world_y-1 And (Rand(0,r+1)>Abs(r1) And Rand(0,r+1)>Abs(r2)) Then
+		          If world[x+r1,y+r2,z]=1 And world_ground_type[x+r1,y+r2,z]<>c_type_1 And world_ground_type[x+r1,y+r2,z]<>c_type_2 Then
+		            world_ground_type[x+r1,y+r2,z]=-2
+		          End If
+		        End If
+		
+		      Next
+		      Next
+
+	      End If
+	
+	    End If
+	
+	  Next
+	  Next
+	  Next
+	
+	  For Local x=0 To world_x-1
+	  For Local y=0 To world_y-1
+	  For Local z=0 To world_z-1
+	
+	    If world[x,y,z]=1 And world_ground_type[x,y,z]=-1 Then
+	      world_ground_type[x,y,z]=c_type_1
+		    world_ground_index[x,y,z]=Rand(0,9)
+	    End If
+	
+	  Next
+	  Next
+	  Next
+
+	  For Local x=0 To world_x-1
+	  For Local y=0 To world_y-1
+	  For Local z=0 To world_z-1
+	
+	    If world[x,y,z]=1 And world_ground_type[x,y,z]=-2 Then
+	      world_ground_type[x,y,z]=c_type_2
+		    world_ground_index[x,y,z]=Rand(0,9)
+	    End If
+	
+	  Next
+	  Next
+	  Next
+
+
+Next
+
+
+
+
+  For Local x=0 To world_x-1
+  For Local y=0 To world_y-1
+  For Local z=0 To world_z-1
+
+    If world[x,y,z]=1 And world_ground_type[x,y,z]<>c_type_1 And world_ground_type[x,y,z]<>c_type_2 Then 
+
+      If x+1<=world_x-1 Then
+        If world[x+1,y,z]=1 And (world_ground_type[x+1,y,z]=c_type_1 Or world_ground_type[x+1,y,z]=c_type_2) Then
+	       world_ground_type[x,y,z]=c_earth
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+      If x-1>=0 Then
+        If world[x-1,y,z]=1 And (world_ground_type[x-1,y,z]=c_type_1 Or world_ground_type[x-1,y,z]=c_type_2) Then
+	       world_ground_type[x,y,z]=c_earth
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+
+      If y+1<=world_y-1 Then
+        If world[x,y+1,z]=1 And (world_ground_type[x,y+1,z]=c_type_1 Or world_ground_type[x,y+1,z]=c_type_2) Then
+	       world_ground_type[x,y,z]=c_earth
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+
+      If y-1>=0 Then
+        If world[x,y-1,z]=1 And (world_ground_type[x,y-1,z]=c_type_1 Or world_ground_type[x,y-1,z]=c_type_2) Then
+	       world_ground_type[x,y,z]=c_earth
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+    End If
+
+  Next
+  Next
+  Next
+
+
+  For Local x=0 To world_x-1
+  For Local y=0 To world_y-1
+  For Local z=0 To world_z-1
+
+    If world[x,y,z]=1 And world_ground_type[x,y,z]=c_type_1 Then 
+
+      If x+1<=world_x-1 Then
+        If world[x+1,y,z]=1 And world_ground_type[x+1,y,z]=c_earth Then
+	       world_ground_type[x,y,z]=c_type_2
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+      If x-1>=0 Then
+        If world[x-1,y,z]=1 And world_ground_type[x-1,y,z]=c_earth Then
+	       world_ground_type[x,y,z]=c_type_2
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+
+      If y+1<=world_y-1 Then
+        If world[x,y+1,z]=1 And world_ground_type[x,y+1,z]=c_earth Then
+	       world_ground_type[x,y,z]=c_type_2
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+
+      If y-1>=0 Then
+        If world[x,y-1,z]=1 And world_ground_type[x,y-1,z]=c_earth Then
+	       world_ground_type[x,y,z]=c_type_2
+	       world_ground_index[x,y,z]=Rand(0,9)	
+	     End If
+	   End If
+
+    End If
+
+  Next
+  Next
+  Next
+
 
 
 
@@ -1151,19 +1338,25 @@ Function world_init()
 
     If world[x,y,z]=1 Then
 	    
-		    Select Rand(1,2)
-		      Case c_earth
-		        world_ground_type[x,y,z]=c_earth
-		        world_ground_index[x,y,z]=Rand(0,9)
-		      Case c_gras
-		        world_ground_type[x,y,z]=c_gras
-		        world_ground_index[x,y,z]=Rand(0,9)
-		    End Select
+		  world_ground_type[x,y,z]=c_earth
+		  world_ground_index[x,y,z]=Rand(0,9)	   
+	
+	  If map_vegetation[world_map_x,world_map_y]=veg_wiese Then
+		  If Rand(0,100)<25 Then
+		     world_ground_type[x,y,z]=c_gras
+		     world_ground_index[x,y,z]=Rand(0,9)
+	    End If
+		Else
+			If Rand(0,100)<15 Then
+		     world_ground_type[x,y,z]=c_gras
+		     world_ground_index[x,y,z]=Rand(0,9)
+	    End If
+	  End If
 		
 		
-	    If Rand(0,10000)>9990-16*2+map_height[world_map_x,world_map_y]*2-8*2+map_urban[world_map_x,world_map_y]*2 Then
+	    If Rand(0,10000)>9900-16*2+map_height[world_map_x,world_map_y]*2-8*2+map_urban[world_map_x,world_map_y]*2 Then
       	If map_vegetation[world_map_x,world_map_y]=veg_sumpf Then
-          If Rand(0,1)=1 Then
+          If Rand(0,25)<20 Then
 			      world_ground_type[x,y,z]=c_deep_water
 		        world_ground_index[x,y,z]=Rand(0,9)
   	      Else
@@ -1171,8 +1364,8 @@ Function world_init()
 		        world_ground_index[x,y,z]=Rand(0,9)
 		      End If
 		    Else
-			    If Rand(0,10000)>9990-16*2+map_height[world_map_x,world_map_y]*2-8*2+map_urban[world_map_x,world_map_y]*2 Then
-	          If Rand(0,1)=1 Then
+			    If Rand(0,10000)>9900-16*2+map_height[world_map_x,world_map_y]*2-8*2+map_urban[world_map_x,world_map_y]*2 Then
+	          If Rand(0,25)<20 Then
 				      world_ground_type[x,y,z]=c_deep_water
 			        world_ground_index[x,y,z]=Rand(0,9)
 	  	      Else
@@ -1192,15 +1385,9 @@ Function world_init()
 
 
   If map_vegetation[world_map_x,world_map_y]=veg_sumpf Then
-    world_gen_field(c_deep_water,3,3)
+    world_gen_dbl_field(c_deep_water,c_water,3,4)
   Else
-    world_gen_field(c_deep_water,1,3)
-  End If
-
-  If map_vegetation[world_map_x,world_map_y]=veg_sumpf Then
-    world_gen_field(c_water,6,3)
-  Else
-    world_gen_field(c_water,1,3)
+    world_gen_dbl_field(c_deep_water,c_water,1,4)
   End If
 
 
@@ -1209,8 +1396,12 @@ Function world_init()
 
   world_clear_single()
 
-  world_gen_margins()
-
+  world_gen_margins(c_gras,c_earth)
+  world_gen_margins(c_earth,c_water)
+  world_gen_margins(c_gras,c_water)
+  world_gen_margins(c_earth,c_deep_water)
+  world_gen_margins(c_gras,c_deep_water)
+  world_gen_margins(c_water,c_deep_water)
 
 
 
@@ -1222,7 +1413,7 @@ Function world_init()
   For Local z=0 To world_z-1
 
     If world[x,y,z]=1 Then
-    If world_ground_type[x,y,z]<>c_water Then
+    If world_ground_type[x,y,z]<>c_water And world_ground_type[x,y,z]<>c_deep_water And world_ground_type[x,y,z]<>c_pool_water Then
     If x-1>=0 And x+1<=world_x-1 And y-1>=0 And y+1<=world_y-1 Then
     If world[x-1,y,z]=1 And world[x+1,y,z]=1 And world[x,y-1,z]=1 And world[x,y+1,z]=1 Then
     If x Mod 2 = 0 And y Mod 2 = 0 Then
@@ -1257,14 +1448,14 @@ Function world_init()
 
 
 
-If map_vegetation[world_map_x,world_map_y]=veg_busch
+If map_vegetation[world_map_x,world_map_y]=veg_busch Then
 
   For Local x=0 To world_x-1
   For Local y=0 To world_y-1
   For Local z=0 To world_z-1
 
     If world[x,y,z]=1 Then
-    If world_ground_type[x,y,z]<>c_water Then
+    If world_ground_type[x,y,z]<>c_water And world_ground_type[x,y,z]<>c_deep_water And world_ground_type[x,y,z]<>c_pool_water Then
     If x-1>=0 And x+1<=world_x-1 And y-1>=0 And y+1<=world_y-1 Then
     If world[x-1,y,z]=1 And world[x+1,y,z]=1 And world[x,y-1,z]=1 And world[x,y+1,z]=1 Then
     If x Mod 2 = 0 And y Mod 2 = 0 Then
@@ -1286,14 +1477,14 @@ End If
 
 
 
-If map_vegetation[world_map_x,world_map_y]=veg_nadelwald
+If map_vegetation[world_map_x,world_map_y]=veg_nadelwald Then
 
   For Local x=0 To world_x-1
   For Local y=0 To world_y-1
   For Local z=0 To world_z-1
 
     If world[x,y,z]=1 Then
-    If world_ground_type[x,y,z]<>c_water Then
+    If world_ground_type[x,y,z]<>c_water And world_ground_type[x,y,z]<>c_deep_water And world_ground_type[x,y,z]<>c_pool_water Then
     If x-1>=0 And x+1<=world_x-1 And y-1>=0 And y+1<=world_y-1 Then
     If world[x-1,y,z]=1 And world[x+1,y,z]=1 And world[x,y-1,z]=1 And world[x,y+1,z]=1 Then
     If x Mod 2 = 0 And y Mod 2 = 0 Then
@@ -1315,14 +1506,14 @@ End If
 
 
 
-If map_vegetation[world_map_x,world_map_y]=veg_laubwald
+If map_vegetation[world_map_x,world_map_y]=veg_laubwald Then
 
   For Local x=0 To world_x-1
   For Local y=0 To world_y-1
   For Local z=0 To world_z-1
 
     If world[x,y,z]=1 Then
-    If world_ground_type[x,y,z]<>c_water Then
+    If world_ground_type[x,y,z]<>c_water And world_ground_type[x,y,z]<>c_deep_water And world_ground_type[x,y,z]<>c_pool_water Then
     If x-1>=0 And x+1<=world_x-1 And y-1>=0 And y+1<=world_y-1 Then
     If world[x-1,y,z]=1 And world[x+1,y,z]=1 And world[x,y-1,z]=1 And world[x,y+1,z]=1 Then
     If x Mod 2 = 0 And y Mod 2 = 0 Then
@@ -1344,14 +1535,14 @@ End If
 
 
 
-If map_vegetation[world_map_x,world_map_y]=veg_mischwald
+If map_vegetation[world_map_x,world_map_y]=veg_mischwald Then
 
   For Local x=0 To world_x-1
   For Local y=0 To world_y-1
   For Local z=0 To world_z-1
 
     If world[x,y,z]=1 Then
-    If world_ground_type[x,y,z]<>c_water Then
+    If world_ground_type[x,y,z]<>c_water And world_ground_type[x,y,z]<>c_deep_water And world_ground_type[x,y,z]<>c_pool_water Then
     If x-1>=0 And x+1<=world_x-1 And y-1>=0 And y+1<=world_y-1 Then
     If world[x-1,y,z]=1 And world[x+1,y,z]=1 And world[x,y-1,z]=1 And world[x,y+1,z]=1 Then
     If x Mod 2 = 0 And y Mod 2 = 0 Then
@@ -1396,7 +1587,7 @@ End If
 
     If world_ground_type[x,y,z]=c_water Then
 
-	    If Rand(0,100)<23 Then
+	    If Rand(0,100)<25 Then
 		   Select Rand(0,1)
 	      Case 0
 	        world_ambient_type[x,y,z]=weed_01
@@ -1406,16 +1597,31 @@ End If
 		
     Else
 
-	    If Rand(0,100)<23 Then
-		    Select Rand(0,1)
-		      Case 0
-		        world_ambient_type[x,y,z]=weed_01
-		        world_ambient_index[x,y,z]=Rand(0,weed_01_max-1)
-			  Case 1
-		        world_ambient_type[x,y,z]=weed_02
-		        world_ambient_index[x,y,z]=Rand(0,weed_02_max-1)
-		    End Select
-	    End If
+      If world_ground_type[x,y,z]<>c_deep_water And world_ground_type[x,y,z]<>c_pool_water Then
+	      If map_vegetation[world_map_x,world_map_y]=veg_wiese Then
+			    If Rand(0,100)<30 Then
+				    Select Rand(0,1)
+				      Case 0
+				        world_ambient_type[x,y,z]=weed_01
+				        world_ambient_index[x,y,z]=Rand(0,weed_01_max-1)
+					  Case 1
+				        world_ambient_type[x,y,z]=weed_02
+				        world_ambient_index[x,y,z]=Rand(0,weed_02_max-1)
+				    End Select
+			    End If
+	      Else
+			    If Rand(0,100)<15 Then
+				    Select Rand(0,1)
+				      Case 0
+				        world_ambient_type[x,y,z]=weed_01
+				        world_ambient_index[x,y,z]=Rand(0,weed_01_max-1)
+					  Case 1
+				        world_ambient_type[x,y,z]=weed_02
+				        world_ambient_index[x,y,z]=Rand(0,weed_02_max-1)
+				    End Select
+			    End If
+	      End If
+      End If
 
     End If
 

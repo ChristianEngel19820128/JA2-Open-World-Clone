@@ -525,10 +525,21 @@ Function item_types_load()
 
       'slots and capacity
       ReadLine(file)
-      item_type_slots[i]=Int(ReadLine(file))
+      Local s=Int(ReadLine(file))
+      If s>item_slot_max Then
+        item_type_slots[i]=item_slot_max
+      Else
+        item_type_slots[i]=s
+      End If
+
       ReadLine(file)
       For Local k=0 To item_slot_max-1
-        item_type_slot_capacity[i,k]=Int(ReadLine(file))
+        Local c=Int(ReadLine(file))
+        If c>item_capacity_max Then
+          item_type_slot_capacity[i,k]=item_capacity_max
+        Else
+          item_type_slot_capacity[i,k]=c
+        End If
       Next
 	
 		  CloseFile(file)
