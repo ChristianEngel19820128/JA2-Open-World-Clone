@@ -7,6 +7,8 @@ It's a Long-Term-Project in progress. Don't be affraid, it's denglish. And I hav
 
 2. Support for custom config properties are still work in progress. So you have the possibility to add your own Mercs, Animations, Tiles, Houses, Items or what ever in different ways via config. If you can do so.
 
+3. My tabstop is set to 2 spaces. Don't wonder about misrepresentation.
+
 Planned Updates weekly to monthly. Uploads of compiled Version anytime.
 
 BlitzMax offers you to compile at Windows, Unix/Linux or MacOS. If you have the compiler naturally.
