@@ -108,9 +108,14 @@ Function world_load()
   If world_loaded_x<>world_map_x Or world_loaded_y<>world_map_y Then
 
 	  If map_cache[world_map_x,world_map_y]=1 And FileType("data/map/"+world_map_x+"_"+world_map_y+"/"+world_map_x+"_"+world_map_y+".txt")=1 Then
+		
+		    If FileType("data/map/"+world_map_x+"_"+world_map_y+"/minimap.png")=1 Then
+		      img_world_minimap=LoadImage("data/map/"+world_map_x+"_"+world_map_y+"/minimap.png")
+          MidHandleImage(img_world_minimap)
+        End If
 			
 				Local file:TStream=ReadFile("data/map/"+world_map_x+"_"+world_map_y+"/"+world_map_x+"_"+world_map_y+".txt")
-			
+
 			  For Local i=0 To world_x/world_cluster_size-1
 			  For Local k=0 To world_y/world_cluster_size-1
 			    world_cache[i,k]=ReadInt(file)
@@ -983,6 +988,8 @@ Function world_gen_minimap()
   Next
 
     img_world_minimap=LoadImage(MaskPixmap(pix,0,0,0))
+    MidHandleImage(img_world_minimap)
+
     SavePixmapPNG(MaskPixmap(pix,0,0,0),"data/map/"+world_map_x+"_"+world_map_y+"/minimap.png",compression)
 
 End Function
@@ -1040,7 +1047,9 @@ Function world_gen_mountain()
 	Local y2=Rand(y1+1,world_y-1)
 	Local x2=Rand(x1+1,world_x-1)
 	
-	Local s1:Float=(y2-y1)/(x2-x1)
+	Local s1:Float=(y2-y1)/((x2-x1)+1)
+	If s1=0 Then s1=1
+	
 	Local s2:Float=y1-x1*s1	
 	
 	Local h=Rand(0,Floor(map_height[world_map_x,world_map_y]*(world_z-1)/16))

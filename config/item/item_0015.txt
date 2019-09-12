@@ -1,0 +1,68 @@
+<Name>
+9mm 15er Pistolen Magazin
+<Imagepath>
+magazine/9mm_15_pistol.png
+<Groups max=3>
+magazine
+pistol
+none
+<dualhand>
+0
+<used Inventory Slot>
+none
+<used Space>
+15
+<used Room>
+1
+<is Supressed>
+0
+<Addon Supressor>
+0
+<Addon Bipod>
+0
+<Addon Scope>
+0
+<Addon Grenadelauncher>
+0
+<Addon Laserpointer>
+0
+<Caliber>
+none
+<Caliber Type>
+cal_9mm
+<use Magazine>
+0
+<use Ammo>
+15
+<Damage>
+0
+<Range>
+0
+<possible Stack>
+4
+<possible Contain Space>
+60
+<Light>
+0
+<Lightrange>
+0
+<Lightduration>
+0
+<Light Color max=3>
+0
+0
+0
+<Values max=5>
+0
+0
+0
+0
+0
+<Slots>
+0
+<Slots Capacity max=5>
+0
+0
+0
+0
+0

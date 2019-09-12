@@ -2,8 +2,8 @@
 'zeitsystem
 
 
-Global time_x=wx-200
-Global time_y=wy-100
+Global time_x=0
+Global time_y=wy/2
 
 Global timestemp:Long
 
@@ -159,6 +159,24 @@ End Function
 
 
 
+
+Function time_draw_time(x,y,r,g,b)
+
+SetColor r,g,b
+
+Local s:String
+Local s1:String
+Local s2:String
+
+If stunden<10 Then s1="0"
+If minuten<10 Then s2="0"
+s=s1+stunden+":"+s2+minuten
+
+DrawText s,x-TextWidth(s)/2,y-TextHeight(s)/2
+
+SetColor 255,255,255
+
+End Function
 
 
 

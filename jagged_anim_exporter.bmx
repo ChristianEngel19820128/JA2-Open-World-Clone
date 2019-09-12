@@ -173,9 +173,9 @@ Function sti_load(name:String)
 
   Local flag
 
+  If FileType("slf/"+name+".sti")=1 Then
 
-
-  file=ReadFile("gfx/"+name+".sti")
+  file=ReadFile("slf/"+name+".sti")
 
 
     For i=0 To 15
@@ -184,7 +184,7 @@ Function sti_load(name:String)
 
     flag = ReadByte(file) + ReadByte(file) Shl 8 + ReadByte(file) Shl 16 + ReadByte(file) Shl 32
 
-    Print "Flag "+flag
+    'Print "Flag "+flag
 
     For i=20 To 27
       ReadByte(file)
@@ -193,7 +193,7 @@ Function sti_load(name:String)
 
     sti_images=ReadByte(file)
     sti_images=sti_images+256*ReadByte(file) 
-    Print "Images " + sti_images
+    'Print "Images " + sti_images
 
     For i=30 To 63
       ReadByte(file)
@@ -288,7 +288,11 @@ Function sti_load(name:String)
 
   'alle bilder geladen
 
+  Else
 
+    Print name
+
+  End If
 
 
 End Function
@@ -345,7 +349,7 @@ Function sti_extract_merc(anim,sex)
 		
     'indexfile erstellen
 
-    file=WriteFile("gfx/merc/"+sex+"_"+anim+".txt")
+    file=WriteFile("gfx/world/merc/"+sex+"_"+anim+".off")
 		WriteInt(file,width)
 		WriteInt(file,height)
 		WriteInt(file,images)
@@ -478,13 +482,11 @@ Function sti_extract_merc(anim,sex)
   Next
 
 
+	pparts=MaskPixmap(pparts,140,0,0)
+  SavePixmapPNG(pparts,"gfx/world/merc/"+sex+"_"+anim+".png")
 
 
-			pparts=MaskPixmap(pparts,140,0,0)
-      SavePixmapPNG(pparts,"gfx/merc/"+sex+"_"+anim+".png")
-
-
-      If KeyHit(key_escape) Then End
+  If KeyHit(key_escape) Then End
 
 
   a_count:+1
@@ -594,92 +596,115 @@ End Function
 
 
 m_merc()
-'f_merc()
+f_merc()
 
 
 Function m_merc()
 
 a_count=0
 
-load_sti_merc("merc\m_merc\M_N_STD",anim_stand,0)
-load_sti_merc("merc\m_merc\M_N_WALK",anim_walk,0)
-load_sti_merc("merc\m_merc\M_N_RUN",anim_run,0)
+load_sti_merc("m_merc/M_N_STD",anim_stand,0)
+load_sti_merc("m_merc/M_N_WALK",anim_walk,0)
+load_sti_merc("m_merc/M_N_RUN",anim_run,0)
+load_sti_merc("m_merc/M_N_PRNE",anim_prone,0)
+load_sti_merc("m_merc/M_N_CRCH",anim_crouch,0)
+load_sti_merc("m_merc/M_N_SWAT",anim_swat,0)
 
-load_sti_merc("merc\m_merc\M_N_PRNE",anim_prone,0)
-load_sti_merc("merc\m_merc\M_N_CRCH",anim_crouch,0)
-load_sti_merc("merc\m_merc\M_N_SWAT",anim_swat,0)
-
-load_sti_merc("merc\m_merc\M_CLIMB",anim_climb,0)
-load_sti_merc("merc\m_merc\M_HOP",anim_jump,0)
-
-
-load_sti_merc("merc\m_merc\M_FALL",anim_fall_back,0)
-load_sti_merc("merc\m_merc\M_FALLF",anim_fall_forward,0)
+load_sti_merc("m_merc/M_CLIMB",anim_climb,0)
+load_sti_merc("m_merc/M_HOP",anim_jump,0)
 
 
-load_sti_merc("merc\m_merc\M_THROW",anim_throw,0)
-load_sti_merc("merc\m_merc\M_LOB",anim_throw_low,0)
-
-load_sti_merc("merc\m_merc\M_OPEN",anim_open,0)
-load_sti_merc("merc\m_merc\M_PICKUP",anim_pickup_item,0)
+load_sti_merc("m_merc/M_FALL",anim_fall_back,0)
+load_sti_merc("m_merc/M_FALLF",anim_fall_forward,0)
 
 
-load_sti_merc("merc\m_merc\M_P_BRTH",anim_stand_p,0)
-load_sti_merc("merc\m_merc\M_P_SHLO",anim_stand_p_shoot_low,0)
-load_sti_merc("merc\m_merc\M_N_SHOT",anim_stand_p_shoot,0)
-load_sti_merc("merc\m_merc\M_DBL_BR",anim_stand_dbl,0)
-load_sti_merc("merc\m_merc\M_DBLSHT",anim_stand_dbl_shoot,0)
-load_sti_merc("merc\m_merc\M_N_C_AI",anim_crouch_shoot,0)
-load_sti_merc("merc\m_merc\MC_DBLSH",anim_crouch_dbl_shoot,0)
-load_sti_merc("merc\m_merc\M_DB_PRN",anim_prone_dbl_shoot,0)
+load_sti_merc("m_merc/M_THROW",anim_throw,0)
+load_sti_merc("m_merc/M_LOB",anim_throw_low,0)
+
+load_sti_merc("m_merc/M_OPEN",anim_open,0)
+load_sti_merc("m_merc/M_PICKUP",anim_pickup_item,0)
+load_sti_merc("m_merc/M_MEDIC",anim_medic,0)
+load_sti_merc("m_merc/M_CROBAR",anim_crowbar,0)
 
 
+load_sti_merc("m_merc/M_P_BRTH",anim_stand_p,0)
+load_sti_merc("m_merc/M_P_SHLO",anim_stand_p_shoot_low,0)
+load_sti_merc("m_merc/M_N_SHOT",anim_stand_p_shoot,0)
+load_sti_merc("m_merc/M_N_C_AI",anim_crouch_shoot,0)
 
-load_sti_merc("merc\m_merc\M_BREATH",anim_stand_r,0)
-load_sti_merc("merc\m_merc\M_BRETH2",anim_stand_r_up,0)
-
-load_sti_merc("merc\m_merc\M_R_C",anim_crouch_r_up,0)
-load_sti_merc("merc\m_merc\M_R_PRN",anim_prone_r,0)
+load_sti_merc("m_merc/M_DBL_BR",anim_stand_dbl,0)
+load_sti_merc("m_merc/M_DBLSHT",anim_stand_dbl_shoot,0)
+load_sti_merc("m_merc/MC_DBLSH",anim_crouch_dbl_shoot,0)
+load_sti_merc("m_merc/M_DB_PRN",anim_prone_dbl_shoot,0)
 
 
 
-load_sti_merc("merc\m_merc\M_R_WALK",anim_walk_r,0)
 
-load_sti_merc("merc\m_merc\M_R_RUN",anim_run_r,0)
-load_sti_merc("merc\m_merc\M_R_SWAT",anim_swat_r,0)
-load_sti_merc("merc\m_merc\M_R_PRN",anim_crawl_r,0)
+load_sti_merc("m_merc/M_BRETH2",anim_stand_r,0)
+load_sti_merc("m_merc/M_R_C",anim_crouch_r,0)
+load_sti_merc("m_merc/M_R_PRN",anim_prone_r,0)
 
+load_sti_merc("m_merc/M_WALK2",anim_walk_r,0)
+load_sti_merc("m_merc/M_R_RUN",anim_run_r,0)
+load_sti_merc("m_merc/M_R_SWAT",anim_swat_r,0)
 
-load_sti_merc("merc\m_merc\M_RAISE",anim_raise_r_up,0)
-load_sti_merc("merc\m_merc\M_SR_AIM",anim_shoot_r,0)
-
-load_sti_merc("merc\m_merc\M_CR_AIM",anim_crouch_shoot_r,0)
-
-
-load_sti_merc("merc\m_merc\MW_N_STD",anim_w_stand,0)
-load_sti_merc("merc\m_merc\MW_N_WAL",anim_w_walk,0)
-load_sti_merc("merc\m_merc\MW_N_SHT",anim_w_shoot,0)
-
-load_sti_merc("merc\m_merc\MW_DBL",anim_w_dbl_shoot,0)
-
-load_sti_merc("merc\m_merc\MW_THROW",anim_w_throw,0)
-load_sti_merc("merc\m_merc\MW_DIE",anim_w_die_1,0)
-load_sti_merc("merc\m_merc\MW_DIE2",anim_w_die_2,0)
-load_sti_merc("merc\m_merc\MW_FALL",anim_w_fall,0)
-
-load_sti_merc("merc\m_merc\MW_R_STD",anim_w_stand_r,0)
-load_sti_merc("merc\m_merc\MW_R_WAL",anim_w_walk_r,0)
-load_sti_merc("merc\m_merc\MW_SR_AI",anim_w_shoot_r,0)
-
-load_sti_merc("merc\m_merc\MW_SWIM",anim_w_swim,0)
-load_sti_merc("merc\m_merc\MW_TRED",anim_w_tred,0)
+load_sti_merc("m_merc/M_SR_AM2",anim_shoot_r,0)
+load_sti_merc("m_merc/M_SHTLOW",anim_shoot_low_r,0)
+load_sti_merc("m_merc/M_CR_AIM",anim_crouch_shoot_r,0)
 
 
-load_sti_merc("merc\m_merc\M_DIEBAC",anim_die_back,0)
-load_sti_merc("merc\m_merc\M_DIEFWD",anim_die_forward,0)
-load_sti_merc("merc\m_merc\M_DIEHD",anim_die_hard,0)
-load_sti_merc("merc\m_merc\M_DIEHDB",anim_die_hard_burst,0)
-load_sti_merc("merc\m_merc\M_DIEJFK",anim_die_jfk,0)
+
+load_sti_merc("m_merc/MW_N_STD",anim_w_stand,0)
+load_sti_merc("m_merc/MW_N_WLK",anim_w_walk,0)
+load_sti_merc("m_merc/MW_N_SHT",anim_w_shoot,0)
+load_sti_merc("m_merc/MW_DBL",anim_w_dbl_shoot,0)
+
+load_sti_merc("m_merc/MW_THROW",anim_w_throw,0)
+load_sti_merc("m_merc/MW_DIE",anim_w_die,0)
+load_sti_merc("m_merc/MW_DIE2",anim_w_deep_die,0)
+load_sti_merc("m_merc/MW_FALL",anim_w_fall,0)
+
+load_sti_merc("m_merc/MW_R_STD",anim_w_stand_r,0)
+load_sti_merc("m_merc/MW_R_WAL",anim_w_walk_r,0)
+load_sti_merc("m_merc/MW_SR_AM",anim_w_shoot_r,0)
+
+load_sti_merc("m_merc/MW_SWIM",anim_w_swim,0)
+load_sti_merc("m_merc/MW_TRED",anim_w_tred,0)
+
+
+load_sti_merc("m_merc/M_DIEBAC",anim_die_back,0)
+load_sti_merc("m_merc/M_DIEFWD",anim_die_forward,0)
+load_sti_merc("m_merc/M_DIEHD",anim_die_hard,0)
+load_sti_merc("m_merc/M_DIEHDB",anim_die_hard_burst,0)
+load_sti_merc("m_merc/M_DIEJFK",anim_die_jfk,0)
+
+
+load_sti_merc("m_merc/M_C_DIE",anim_crouch_die,0)
+load_sti_merc("m_merc/M_P_DIE",anim_prone_die,0)
+
+
+load_sti_merc("m_merc/M_MORTAR",anim_mortar,0)
+load_sti_merc("m_merc/W_LAW",anim_law,0)
+
+
+load_sti_merc("m_merc/M_SLICE",anim_stand_k_slice,0)
+load_sti_merc("m_merc/M_STAB",anim_stand_k_stab,0)
+load_sti_merc("m_merc/M_C_STB",anim_crouch_k_stab,0)
+load_sti_merc("m_merc/M_K_THRO",anim_stand_k_throw,0)
+
+
+load_sti_merc("m_merc/M_PUNCH",anim_stand_punch,0)
+load_sti_merc("m_merc/M_PCH_LO",anim_crouch_punch_low,0)
+load_sti_merc("m_merc/M_DR_KCK",anim_stand_kick,0)
+
+
+load_sti_merc("m_merc/M_I_BR_N",anim_i_stand,0)
+load_sti_merc("m_merc/M_I_BR_R",anim_i_walk,0)
+load_sti_merc("m_merc/M_I_WK_N",anim_i_stand_r,0)
+load_sti_merc("m_merc/M_I_WK_R",anim_i_walk_r,0)
+
+
+load_sti_merc("m_merc/M_C_TRAN",anim_crouch_trans_r,0)
 
 
 End Function
@@ -693,94 +718,107 @@ Function f_merc()
 
 a_count=0
 
-load_sti_merc("merc\f_merc\F_N_STD",anim_stand,1)
-load_sti_merc("merc\f_merc\F_N_WALK",anim_walk,1)
-load_sti_merc("merc\f_merc\F_N_RUN",anim_run,1)
 
-load_sti_merc("merc\f_merc\F_N_PRNE",anim_prone,1)
-load_sti_merc("merc\f_merc\F_N_CRCH",anim_crouch,1)
-load_sti_merc("merc\f_merc\F_N_SWAT",anim_swat,1)
+load_sti_merc("f_merc/F_N_STD",anim_stand,1)
+load_sti_merc("f_merc/F_N_WALK",anim_walk,1)
+load_sti_merc("f_merc/F_N_RUN",anim_run,1)
+load_sti_merc("f_merc/F_N_PRNE",anim_prone,1)
+load_sti_merc("f_merc/F_N_CRCH",anim_crouch,1)
+load_sti_merc("f_merc/F_N_SWAT",anim_swat,1)
 
-load_sti_merc("merc\f_merc\F_CLIMB",anim_climb,1)
-load_sti_merc("merc\f_merc\F_HOP",anim_jump,1)
-load_sti_merc("merc\f_merc\F_FALL",anim_fall_back,1)
-load_sti_merc("merc\f_merc\F_FALLF",anim_fall_forward,1)
+load_sti_merc("f_merc/F_CLIMB",anim_climb,1)
+load_sti_merc("f_merc/F_HOP",anim_jump,1)
 
 
-load_sti_merc("merc\f_merc\F_THROW",anim_throw,1)
-load_sti_merc("merc\f_merc\F_LOB",anim_throw_low,1)
-
-load_sti_merc("merc\f_merc\F_OPEN",anim_open,1)
-load_sti_merc("merc\f_merc\F_PICKUP",anim_pickup_item,1)
+load_sti_merc("f_merc/F_FALL",anim_fall_back,1)
+load_sti_merc("f_merc/F_FALLF",anim_fall_forward,1)
 
 
-load_sti_merc("merc\f_merc\F_P_BRTH",anim_stand_p,1)
-load_sti_merc("merc\f_merc\F_P_SHLO",anim_stand_p_shoot_low,1)
+load_sti_merc("f_merc/F_THROW",anim_throw,1)
+load_sti_merc("f_merc/F_LOB",anim_throw_low,1)
 
-load_sti_merc("merc\f_merc\F_N_SHOT",anim_stand_p_shoot,1)
-load_sti_merc("merc\f_merc\F_DBL_BR",anim_stand_dbl,1)
-
-load_sti_merc("merc\f_merc\F_DBLSHT",anim_stand_dbl_shoot,1)
-
-
-load_sti_merc("merc\f_merc\F_N_C_AI",anim_crouch_shoot,1)
-
-load_sti_merc("merc\f_merc\FC_DBLSH",anim_crouch_dbl_shoot,1)
+load_sti_merc("f_merc/F_OPEN",anim_open,1)
+load_sti_merc("f_merc/F_PICKUP",anim_pickup_item,1)
+load_sti_merc("f_merc/F_MEDIC",anim_medic,1)
+load_sti_merc("f_merc/F_CROBAR",anim_crowbar,1)
 
 
-load_sti_merc("merc\f_merc\F_DB_PRN",anim_prone_dbl_shoot,1)
+load_sti_merc("f_merc/F_P_BRTH",anim_stand_p,1)
+load_sti_merc("f_merc/F_P_SHLO",anim_stand_p_shoot_low,1)
+load_sti_merc("f_merc/F_N_SHOT",anim_stand_p_shoot,1)
+load_sti_merc("f_merc/F_N_C_AI",anim_crouch_shoot,1)
+
+load_sti_merc("f_merc/F_DBL_BR",anim_stand_dbl,1)
+load_sti_merc("f_merc/F_DBLSHT",anim_stand_dbl_shoot,1)
+load_sti_merc("f_merc/FC_DBLSH",anim_crouch_dbl_shoot,1)
+load_sti_merc("f_merc/F_DB_PRN",anim_prone_dbl_shoot,1)
 
 
 
-load_sti_merc("merc\f_merc\F_BREATH",anim_stand_r,1)
-load_sti_merc("merc\f_merc\F_BRETH2",anim_stand_r_up,1)
 
-load_sti_merc("merc\f_merc\F_R_C",anim_crouch_r_up,1)
-load_sti_merc("merc\f_merc\F_R_PRN",anim_prone_r,1)
+load_sti_merc("f_merc/F_BRETH2",anim_stand_r,1)
+load_sti_merc("f_merc/F_R_C",anim_crouch_r,1)
+load_sti_merc("f_merc/F_R_PRN",anim_prone_r,1)
 
+load_sti_merc("f_merc/F_WALK",anim_walk_r,1)
+load_sti_merc("f_merc/F_R_RUN",anim_run_r,1)
+load_sti_merc("f_merc/F_R_SWAT",anim_swat_r,1)
 
-load_sti_merc("merc\f_merc\F_R_WALK",anim_walk_r,1)
-
-load_sti_merc("merc\f_merc\F_R_RUN",anim_run_r,1)
-load_sti_merc("merc\f_merc\F_R_SWAT",anim_swat_r,1)
-load_sti_merc("merc\f_merc\F_R_PRN",anim_crawl_r,1)
-
-
-load_sti_merc("merc\f_merc\F_RAISE",anim_raise_r_up,1)
+load_sti_merc("f_merc/F_SR_AIM",anim_shoot_r,1)
+load_sti_merc("f_merc/F_SHTLOW",anim_shoot_low_r,1)
+load_sti_merc("f_merc/F_CR_AIM",anim_crouch_shoot_r,1)
 
 
 
-load_sti_merc("merc\f_merc\F_SR_AIM",anim_shoot_r,1)
+load_sti_merc("f_merc/FW_N_STD",anim_w_stand,1)
+load_sti_merc("f_merc/FW_N_WLK",anim_w_walk,1)
+load_sti_merc("f_merc/FW_N_SHT",anim_w_shoot,1)
+load_sti_merc("f_merc/FW_DBL",anim_w_dbl_shoot,1)
+
+load_sti_merc("f_merc/FW_THRW",anim_w_throw,1)
+load_sti_merc("f_merc/FW_DIE",anim_w_die,1)
+load_sti_merc("f_merc/FW_DIE2",anim_w_deep_die,1)
+load_sti_merc("f_merc/FW_FALL",anim_w_fall,1)
+
+load_sti_merc("f_merc/FW_R_STD",anim_w_stand_r,1)
+load_sti_merc("f_merc/FW_R_WLK",anim_w_walk_r,1)
+load_sti_merc("f_merc/FW_SR_AI",anim_w_shoot_r,1)
+
+load_sti_merc("f_merc/FW_SWIM",anim_w_swim,1)
+load_sti_merc("f_merc/FW_TRED",anim_w_tred,1)
 
 
-load_sti_merc("merc\f_merc\F_CR_AIM",anim_crouch_shoot_r,1)
+load_sti_merc("f_merc/F_DIEBAC",anim_die_back,1)
+load_sti_merc("f_merc/F_DIEFWD",anim_die_forward,1)
+load_sti_merc("f_merc/F_DIEHD",anim_die_hard,1)
+load_sti_merc("f_merc/F_DIEHDB",anim_die_hard_burst,1)
+load_sti_merc("f_merc/F_DIEJFK",anim_die_jfk,1)
 
 
-load_sti_merc("merc\f_merc\FW_N_STD",anim_w_stand,1)
-load_sti_merc("merc\f_merc\FW_N_WLK",anim_w_walk,1)
-load_sti_merc("merc\f_merc\FW_N_SHT",anim_w_shoot,1)
-
-load_sti_merc("merc\f_merc\FW_DBL",anim_w_dbl_shoot,1)
-
-load_sti_merc("merc\f_merc\FW_THRW",anim_w_throw,1)
-load_sti_merc("merc\f_merc\FW_DIE",anim_w_die_1,1)
-load_sti_merc("merc\f_merc\FW_DIE2",anim_w_die_2,1)
-load_sti_merc("merc\f_merc\FW_FALL",anim_w_fall,1)
-
-load_sti_merc("merc\f_merc\FW_R_STD",anim_w_stand_r,1)
-load_sti_merc("merc\f_merc\FW_R_WLK",anim_w_walk_r,1)
-load_sti_merc("merc\f_merc\FW_SR_AI",anim_w_shoot_r,1)
+load_sti_merc("f_merc/F_C_DIE",anim_crouch_die,1)
+load_sti_merc("f_merc/F_P_DIE",anim_prone_die,1)
 
 
-load_sti_merc("merc\f_merc\FW_SWIM",anim_w_swim,1)
-load_sti_merc("merc\f_merc\FW_TRED",anim_w_tred,1)
+load_sti_merc("f_merc/F_MORTAR",anim_mortar,1)
+load_sti_merc("f_merc/F_LAW",anim_law,1)
 
 
-load_sti_merc("merc\f_merc\F_DIEBAC",anim_die_back,1)
-load_sti_merc("merc\f_merc\F_DIEFWD",anim_die_forward,1)
-load_sti_merc("merc\f_merc\F_DIEHD",anim_die_hard,1)
-load_sti_merc("merc\f_merc\F_DIEHDB",anim_die_hard_burst,1)
-load_sti_merc("merc\f_merc\F_DIEJFK",anim_die_jfk,1)
+load_sti_merc("f_merc/F_SLICE",anim_stand_k_slice,1)
+load_sti_merc("f_merc/F_STAB",anim_stand_k_stab,1)
+load_sti_merc("f_merc/F_C_STB",anim_crouch_k_stab,1)
+load_sti_merc("f_merc/F_K_THRO",anim_stand_k_throw,1)
+
+
+load_sti_merc("f_merc/F_PUNCH",anim_stand_punch,1)
+load_sti_merc("f_merc/F_PCH_LO",anim_crouch_punch_low,1)
+load_sti_merc("f_merc/F_DR_KCK",anim_stand_kick,1)
+
+
+load_sti_merc("f_merc/F_I_BR_N",anim_i_stand,1)
+load_sti_merc("f_merc/F_I_BR_R",anim_i_walk,1)
+load_sti_merc("f_merc/F_I_WK_N",anim_i_stand_r,1)
+load_sti_merc("f_merc/F_I_WK_R",anim_i_walk_r,1)
+
 
 
 End Function

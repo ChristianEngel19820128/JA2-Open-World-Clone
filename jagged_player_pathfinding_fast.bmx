@@ -34,9 +34,6 @@ Function player_way_find_fast(index,x,y,action,c=0)
   player_list_open_ref_index[player_list_open_x[0],player_list_open_y[0]]=0
 
 
-Print "x "+x
-Print "y "+y
-
   While b=False And open_min<>-1
 
     open_min=player_list_open_find_min()
@@ -60,8 +57,6 @@ Print "y "+y
           player_list_open_neighbour_set(open_min,target,southeast,x,y,z,c)
           player_list_open_neighbour_set(open_min,target,southwest,x,y,z,c)
 
-Print "target "+target
-Print "open min "+open_min
 
         Else
           b=True
@@ -89,12 +84,6 @@ Print "open min "+open_min
   Local a
   Local act
 
-Print "target "+target
-Print "last "+player_list_close_last
-
-For Local l=0 To player_list_close_last
-Print player_list_close_x[l]+" "+player_list_close_y[l]+" "+player_list_close_p[l]
-Next
 
   If b=True Then
 
@@ -103,7 +92,6 @@ Next
     While player_list_close_p[k]<>-1
       player_list_close_n[player_list_close_p[k]]=k
       k=player_list_close_p[k]
-Print "k "+k
     Wend
 
     i=player_list_close_n[k]
@@ -120,9 +108,6 @@ Print "k "+k
     'gehe den weg schrittweise ab und weise die aktionen zu
 
     While f=False
-
-Print "i "+i
-Print "next "+player_list_close_n[i]
 
 	      If x2<>player_list_close_x[target] Or y2<>player_list_close_y[target] Then
 	
@@ -144,15 +129,12 @@ Print "next "+player_list_close_n[i]
 	                player_tar_add(index,player_list_close_x[i],player_list_close_y[i],player_act_open)
 	              End If
 	              f=True
-	Print "ende 1"
 	
 	            Else
 	              'nicht das endziel objekt
 	              'irgendwas im weg
 	              'stop
 	              f=True
-	
-	Print "ende 2"
 	
 	            End If
 	          Else
@@ -163,10 +145,6 @@ Print "next "+player_list_close_n[i]
 	            'ansonsten ermittle richtung und turn
 	
 	            a=player_get_align(player_list_close_x[i]-x2,player_list_close_y[i]-y2)
-	
-	Print "x "+(player_list_close_x[i]-x2)
-	Print "y "+(player_list_close_y[i]-y2)
-	
 	
 	            'prüfe ob player align gleich ziel align
 	            If a2=a Then

@@ -33,11 +33,20 @@ End Function
 
 Function player_action_animation_set(index,a=0)
 
-Local an=player_anim_transition[index]
+  Local an=player_anim_transition[index]
+
+  Local h=player_check_hand(index)
+  If world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]=c_deep_water Or world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]=c_pool_water Then h=0
 
   Select player_action[index]
 
     Case player_act_stand
+
+       Select h
+
+         Case 0
+
+          'wenn player nichts in der hand hat
 
           Select world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]
             Case c_water
@@ -57,38 +66,165 @@ Local an=player_anim_transition[index]
               End Select
           End Select
 
-      'wenn waffe jeglicher art
+       Case 1
+
+      'wenn waffe rifle type
+
+          Select world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]
+            Case c_water
+              player_anim_transition[index]=player_anim_w_stand_r
+            Default
+              Select player_position[index]
+                Case 0
+                  player_anim_transition[index]=player_anim_stand_r
+                Case 1
+                  player_anim_transition[index]=player_anim_crouch_r
+                Case 2
+                  player_anim_transition[index]=player_anim_prone_r
+              End Select
+          End Select
+
+       Case 2
+
+       'pistol
+
+          Select world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]
+            Case c_water
+              player_anim_transition[index]=player_anim_w_stand
+            Default
+              Select player_position[index]
+                Case 0
+                  player_anim_transition[index]=player_anim_stand_p
+                Case 1
+                  player_anim_transition[index]=player_anim_crouch
+                Case 2
+                  player_anim_transition[index]=player_anim_prone
+              End Select
+          End Select
+
+        Case 3
+
+        'dbl pistol
+
+          Select world_ground_type[player_world_x[index],player_world_y[index],player_world_z[index]]
+            Case c_water
+              player_anim_transition[index]=player_anim_w_stand
+            Default
+              Select player_position[index]
+                Case 0
+                  player_anim_transition[index]=player_anim_stand_d
+                Case 1
+                  player_anim_transition[index]=player_anim_crouch
+                Case 2
+                  player_anim_transition[index]=player_anim_prone
+              End Select
+          End Select
+
+       End Select
+
 
     Case player_act_pos_up
 
-      Select player_position[index]
-        Case 2
-          player_anim_transition[index]=player_anim_go_prone_to_crouch
-        Case 1
-          player_anim_transition[index]=player_anim_go_crouch_to_stand
-      End Select
+      If player_position[index]>0 Then
+
+      If h=1 Then
+        If player_sex[index]=0 And player_position[index]=1 Then
+          player_anim_transition[index]=player_anim_go_crouch_to_stand_trans_r
+        Else
+          Select player_position[index]
+            Case 2
+              player_anim_transition[index]=player_anim_go_prone_to_crouch_r
+            Case 1
+              player_anim_transition[index]=player_anim_go_crouch_to_stand_r
+          End Select
+        End If
+      Else
+
+        Select player_position[index]
+          Case 2
+            player_anim_transition[index]=player_anim_go_prone_to_crouch
+          Case 1
+            player_anim_transition[index]=player_anim_go_crouch_to_stand
+        End Select
+
+      End If
+
+      Else
+        player_action[index]=player_act_stand
+        player_action_animation_set(index)
+        Return 0
+      End If
 
     Case player_act_pos_down
 
-      Select player_position[index]
-        Case 0
-          player_anim_transition[index]=player_anim_go_stand_to_crouch
-        Case 1
-          player_anim_transition[index]=player_anim_go_crouch_to_prone
-      End Select
+      If player_position[index]<2 Then
+
+      If h=1 Then
+        If player_sex[index]=0 And player_position[index]=0 Then
+          player_anim_transition[index]=player_anim_go_stand_to_crouch_trans_r
+        Else
+          Select player_position[index]
+            Case 0
+              player_anim_transition[index]=player_anim_go_stand_to_crouch_r
+            Case 1
+              player_anim_transition[index]=player_anim_go_crouch_to_prone_r
+          End Select
+        End If
+      Else
+
+        Select player_position[index]
+          Case 0
+            player_anim_transition[index]=player_anim_go_stand_to_crouch
+          Case 1
+            player_anim_transition[index]=player_anim_go_crouch_to_prone
+        End Select
+
+      End If
+
+      Else
+        player_action[index]=player_act_stand
+        player_action_animation_set(index)
+        Return 0
+      End If
 
     Case player_act_walk
-      player_anim_transition[index]=player_anim_walk
+      If h=1 Then
+        player_anim_transition[index]=player_anim_walk_r
+      Else
+        player_anim_transition[index]=player_anim_walk
+      End If
+
     Case player_act_run
-      player_anim_transition[index]=player_anim_run
+      If h=1 Then
+        player_anim_transition[index]=player_anim_run_r
+      Else
+        player_anim_transition[index]=player_anim_run
+      End If
+
     Case player_act_swat
-      player_anim_transition[index]=player_anim_swat
+      If h=1 Then
+        player_anim_transition[index]=player_anim_swat_r
+      Else
+        player_anim_transition[index]=player_anim_swat
+      End If
+
     Case player_act_crawl
-      player_anim_transition[index]=player_anim_crawl
+      If h=1 Then
+        player_anim_transition[index]=player_anim_crawl_r
+      Else
+        player_anim_transition[index]=player_anim_crawl
+      End If
+
     Case player_act_w_walk
-      player_anim_transition[index]=player_anim_w_walk
+      If h=1 Then
+        player_anim_transition[index]=player_anim_w_walk_r
+      Else
+        player_anim_transition[index]=player_anim_w_walk
+      End If
+
     Case player_act_w_swim
       player_anim_transition[index]=player_anim_w_swim
+
     Case player_act_w_swimfast
       player_anim_transition[index]=player_anim_w_swimfast
 
@@ -113,6 +249,8 @@ Function player_action_do(index)
 'wenn vergesslich random player_tar_del
 'wenn energy low player_tar_del
 
+  Local h=player_check_hand(index)
+
       Select player_action[index]
 
         Case player_act_stand
@@ -129,25 +267,45 @@ Function player_action_do(index)
           player_turn_right(index)
 
         Case player_act_walk
-          player_walk(index)
+          If h=1 Then
+            player_moving(index,player_e_walk_r)
+          Else
+            player_moving(index,player_e_walk)
+          End If
 
         Case player_act_run
-          player_run(index)
+          If h=1 Then
+            player_moving(index,player_e_run_r)
+          Else
+            player_moving(index,player_e_run)
+          End If
 
         Case player_act_swat
-          player_swat(index)
+          If h=1 Then
+            player_moving(index,player_e_swat_r)
+          Else
+            player_moving(index,player_e_swat)
+          End If
 
         Case player_act_crawl
-          player_crawl(index)
+          If h=1 Then
+            player_moving(index,player_e_crawl_r)
+          Else
+            player_moving(index,player_e_crawl)
+          End If
 
         Case player_act_w_walk
-          player_w_walk(index)
+          If h=1 Then
+            player_moving(index,player_e_w_walk_r)
+          Else
+            player_moving(index,player_e_w_walk)
+          End If
 
         Case player_act_w_swim
-          player_w_swim(index)
+          player_moving(index,player_e_w_swim)
 
         Case player_act_w_swimfast
-          player_w_swimfast(index)
+          player_moving(index,player_e_w_swimfast)
 
       End Select
 

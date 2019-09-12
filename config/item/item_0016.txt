@@ -1,0 +1,68 @@
+<Name>
+Tragetaschen
+<Imagepath>
+gear/tragetaschen.png
+<Groups max=3>
+gear
+none
+none
+<dualhand>
+0
+<used Inventory Slot>
+shoulders
+<used Space>
+60
+<used Room>
+6
+<is Supressed>
+0
+<Addon Supressor>
+0
+<Addon Bipod>
+0
+<Addon Scope>
+0
+<Addon Grenadelauncher>
+0
+<Addon Laserpointer>
+0
+<Caliber>
+none
+<Caliber Type>
+none
+<use Magazine>
+0
+<use Ammo>
+0
+<Damage>
+0
+<Range>
+0
+<possible Stack>
+0
+<possible Contain Space>
+0
+<Light>
+0
+<Lightrange>
+0
+<Lightduration>
+0
+<Light Color max=3>
+0
+0
+0
+<Values max=5>
+0
+0
+0
+0
+0
+<Slots>
+4
+<Slots Capacity max=5>
+1
+1
+2
+2
+0

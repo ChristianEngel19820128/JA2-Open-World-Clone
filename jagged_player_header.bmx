@@ -15,16 +15,17 @@ Const player_inv_head=0
 Const player_inv_face=1
 Const player_inv_eyes=2
 Const player_inv_mouth=3
-Const player_inv_chest=4
-Const player_inv_back=5
-Const player_inv_torso=6
-Const player_inv_belt=7
-Const player_inv_legs=8
-Const player_inv_knees=9
-Const player_inv_foot=10
-Const player_inv_holster=11
-Const player_inv_shoulders=12
-Const player_inv_wrist=13
+Const player_inv_shoulders=4
+Const player_inv_chest=5
+Const player_inv_back=6
+Const player_inv_torso=7
+Const player_inv_wrist=8
+Const player_inv_holster=9
+Const player_inv_belt=10
+Const player_inv_legs=11
+Const player_inv_knees=12
+Const player_inv_foot=13
+
 
 
 Const player_hand_max=2
@@ -63,7 +64,7 @@ Const player_act_w_swimfast=19
 
 'advanced animation porting
 
-Const player_anim_max=16
+Const player_anim_max=33
 
 Global player_anim[player_anim_max]
 Global player_anim_reverse[player_anim_max]
@@ -79,22 +80,49 @@ Const player_anim_prone=2
 Const player_anim_w_stand=3
 Const player_anim_w_tred=4
 
+Const player_anim_stand_r=5
+Const player_anim_crouch_r=6
+Const player_anim_prone_r=7
+Const player_anim_w_stand_r=8
+
+Const player_anim_stand_p=9
+Const player_anim_stand_d=10
+
+
 'transition
 
-Const player_anim_go_stand_to_crouch=5
-Const player_anim_go_crouch_to_prone=6
-Const player_anim_go_prone_to_crouch=7
-Const player_anim_go_crouch_to_stand=8
+Const player_anim_go_stand_to_crouch=11
+Const player_anim_go_crouch_to_prone=12
+Const player_anim_go_prone_to_crouch=13
+Const player_anim_go_crouch_to_stand=14
+
+Const player_anim_go_stand_to_crouch_r=15
+Const player_anim_go_crouch_to_prone_r=16
+Const player_anim_go_prone_to_crouch_r=17
+Const player_anim_go_crouch_to_stand_r=18
+
+Const player_anim_go_stand_to_crouch_trans_r=19
+Const player_anim_go_crouch_to_stand_trans_r=20
 
 'move
 
-Const player_anim_walk=9
-Const player_anim_run=10
-Const player_anim_swat=11
-Const player_anim_crawl=12
-Const player_anim_w_walk=13
-Const player_anim_w_swim=14
-Const player_anim_w_swimfast=15
+Const player_anim_walk=21
+Const player_anim_run=22
+Const player_anim_swat=23
+Const player_anim_crawl=24
+Const player_anim_w_walk=25
+Const player_anim_w_swim=26
+Const player_anim_w_swimfast=27
+
+Const player_anim_walk_r=28
+Const player_anim_run_r=29
+Const player_anim_swat_r=30
+Const player_anim_crawl_r=31
+Const player_anim_w_walk_r=32
+
+
+
+
 
 'animation config data
 
@@ -130,31 +158,104 @@ player_anim_loop[player_anim_w_tred]=1
 player_anim_keyframe_min[player_anim_w_tred]=0
 player_anim_keyframe_max[player_anim_w_tred]=11
 
+player_anim[player_anim_stand_r]=anim_stand_r
+player_anim_reverse[player_anim_stand_r]=0
+player_anim_loop[player_anim_stand_r]=1
+player_anim_keyframe_min[player_anim_stand_r]=0
+player_anim_keyframe_max[player_anim_stand_r]=7
+
+player_anim[player_anim_crouch_r]=anim_crouch_r
+player_anim_reverse[player_anim_crouch_r]=0
+player_anim_loop[player_anim_crouch_r]=1
+player_anim_keyframe_min[player_anim_crouch_r]=5
+player_anim_keyframe_max[player_anim_crouch_r]=14
+
+player_anim[player_anim_prone_r]=anim_prone_r
+player_anim_reverse[player_anim_prone_r]=0
+player_anim_loop[player_anim_prone_r]=1
+player_anim_keyframe_min[player_anim_prone_r]=5
+player_anim_keyframe_max[player_anim_prone_r]=5
+
+player_anim[player_anim_w_stand_r]=anim_w_stand_r
+player_anim_reverse[player_anim_w_stand_r]=0
+player_anim_loop[player_anim_w_stand_r]=1
+player_anim_keyframe_min[player_anim_w_stand_r]=0
+player_anim_keyframe_max[player_anim_w_stand_r]=7
+
+player_anim[player_anim_stand_p]=anim_stand_p
+player_anim_reverse[player_anim_stand_p]=0
+player_anim_loop[player_anim_stand_p]=1
+player_anim_keyframe_min[player_anim_stand_p]=0
+player_anim_keyframe_max[player_anim_stand_p]=7
+
+player_anim[player_anim_stand_d]=anim_stand_dbl
+player_anim_reverse[player_anim_stand_d]=0
+player_anim_loop[player_anim_stand_d]=1
+player_anim_keyframe_min[player_anim_stand_d]=0
+player_anim_keyframe_max[player_anim_stand_d]=7
+
 'transition
 
 player_anim[player_anim_go_stand_to_crouch]=anim_crouch
 player_anim_reverse[player_anim_go_stand_to_crouch]=0
 player_anim_loop[player_anim_go_stand_to_crouch]=0
 player_anim_keyframe_min[player_anim_go_stand_to_crouch]=0
-player_anim_keyframe_max[player_anim_go_stand_to_crouch]=5
+player_anim_keyframe_max[player_anim_go_stand_to_crouch]=4
 
 player_anim[player_anim_go_crouch_to_prone]=anim_prone
 player_anim_reverse[player_anim_go_crouch_to_prone]=0
 player_anim_loop[player_anim_go_crouch_to_prone]=0
 player_anim_keyframe_min[player_anim_go_crouch_to_prone]=0
-player_anim_keyframe_max[player_anim_go_crouch_to_prone]=5
+player_anim_keyframe_max[player_anim_go_crouch_to_prone]=4
 
 player_anim[player_anim_go_prone_to_crouch]=anim_prone
 player_anim_reverse[player_anim_go_prone_to_crouch]=1
 player_anim_loop[player_anim_go_prone_to_crouch]=0
 player_anim_keyframe_min[player_anim_go_prone_to_crouch]=0
-player_anim_keyframe_max[player_anim_go_prone_to_crouch]=5
+player_anim_keyframe_max[player_anim_go_prone_to_crouch]=4
 
 player_anim[player_anim_go_crouch_to_stand]=anim_crouch
 player_anim_reverse[player_anim_go_crouch_to_stand]=1
 player_anim_loop[player_anim_go_crouch_to_stand]=0
 player_anim_keyframe_min[player_anim_go_crouch_to_stand]=0
-player_anim_keyframe_max[player_anim_go_crouch_to_stand]=5
+player_anim_keyframe_max[player_anim_go_crouch_to_stand]=4
+
+player_anim[player_anim_go_stand_to_crouch_r]=anim_crouch_r
+player_anim_reverse[player_anim_go_stand_to_crouch_r]=0
+player_anim_loop[player_anim_go_stand_to_crouch_r]=0
+player_anim_keyframe_min[player_anim_go_stand_to_crouch_r]=0
+player_anim_keyframe_max[player_anim_go_stand_to_crouch_r]=4
+
+player_anim[player_anim_go_crouch_to_prone_r]=anim_prone_r
+player_anim_reverse[player_anim_go_crouch_to_prone_r]=0
+player_anim_loop[player_anim_go_crouch_to_prone_r]=0
+player_anim_keyframe_min[player_anim_go_crouch_to_prone_r]=0
+player_anim_keyframe_max[player_anim_go_crouch_to_prone_r]=4
+
+player_anim[player_anim_go_prone_to_crouch_r]=anim_prone_r
+player_anim_reverse[player_anim_go_prone_to_crouch_r]=1
+player_anim_loop[player_anim_go_prone_to_crouch_r]=0
+player_anim_keyframe_min[player_anim_go_prone_to_crouch_r]=0
+player_anim_keyframe_max[player_anim_go_prone_to_crouch_r]=4
+
+player_anim[player_anim_go_crouch_to_stand_r]=anim_crouch_r
+player_anim_reverse[player_anim_go_crouch_to_stand_r]=1
+player_anim_loop[player_anim_go_crouch_to_stand_r]=0
+player_anim_keyframe_min[player_anim_go_crouch_to_stand_r]=0
+player_anim_keyframe_max[player_anim_go_crouch_to_stand_r]=4
+
+player_anim[player_anim_go_stand_to_crouch_trans_r]=anim_crouch_trans_r
+player_anim_reverse[player_anim_go_stand_to_crouch_trans_r]=0
+player_anim_loop[player_anim_go_stand_to_crouch_trans_r]=0
+player_anim_keyframe_min[player_anim_go_stand_to_crouch_trans_r]=0
+player_anim_keyframe_max[player_anim_go_stand_to_crouch_trans_r]=4
+
+player_anim[player_anim_go_crouch_to_stand_trans_r]=anim_crouch_trans_r
+player_anim_reverse[player_anim_go_crouch_to_stand_trans_r]=1
+player_anim_loop[player_anim_go_crouch_to_stand_trans_r]=0
+player_anim_keyframe_min[player_anim_go_crouch_to_stand_trans_r]=0
+player_anim_keyframe_max[player_anim_go_crouch_to_stand_trans_r]=4
+
 
 'move
 
@@ -173,8 +274,8 @@ player_anim_keyframe_max[player_anim_run]=11
 player_anim[player_anim_swat]=anim_swat
 player_anim_reverse[player_anim_swat]=0
 player_anim_loop[player_anim_swat]=1
-player_anim_keyframe_min[player_anim_swat]=0
-player_anim_keyframe_max[player_anim_swat]=21
+player_anim_keyframe_min[player_anim_swat]=2
+player_anim_keyframe_max[player_anim_swat]=19
 
 player_anim[player_anim_crawl]=anim_prone
 player_anim_reverse[player_anim_crawl]=0
@@ -200,6 +301,38 @@ player_anim_loop[player_anim_w_swimfast]=1
 player_anim_keyframe_min[player_anim_w_swimfast]=0
 player_anim_keyframe_max[player_anim_w_swimfast]=15
 
+player_anim[player_anim_walk_r]=anim_walk_r
+player_anim_reverse[player_anim_walk_r]=0
+player_anim_loop[player_anim_walk_r]=1
+player_anim_keyframe_min[player_anim_walk_r]=0
+player_anim_keyframe_max[player_anim_walk_r]=11
+
+player_anim[player_anim_run_r]=anim_run_r
+player_anim_reverse[player_anim_run_r]=0
+player_anim_loop[player_anim_run_r]=1
+player_anim_keyframe_min[player_anim_run_r]=0
+player_anim_keyframe_max[player_anim_run_r]=11
+
+player_anim[player_anim_swat_r]=anim_swat_r
+player_anim_reverse[player_anim_swat_r]=0
+player_anim_loop[player_anim_swat_r]=1
+player_anim_keyframe_min[player_anim_swat_r]=2
+player_anim_keyframe_max[player_anim_swat_r]=19
+
+player_anim[player_anim_crawl_r]=anim_prone_r
+player_anim_reverse[player_anim_crawl_r]=0
+player_anim_loop[player_anim_crawl_r]=1
+player_anim_keyframe_min[player_anim_crawl_r]=5
+player_anim_keyframe_max[player_anim_crawl_r]=18
+
+player_anim[player_anim_w_walk_r]=anim_w_walk_r
+player_anim_reverse[player_anim_w_walk_r]=0
+player_anim_loop[player_anim_w_walk_r]=1
+player_anim_keyframe_min[player_anim_w_walk_r]=0
+player_anim_keyframe_max[player_anim_w_walk_r]=11
+
+
+
 
 
 'energy uses
@@ -210,7 +343,7 @@ Const player_e_run=6
 Const player_e_swat=6
 Const player_e_crawl=8
 Const player_e_turn_r=4
-Const player_e_move_r=6
+Const player_e_walk_r=6
 Const player_e_run_r=8
 Const player_e_swat_r=8
 Const player_e_crawl_r=10
@@ -221,13 +354,13 @@ Const player_e_jump=10
 Const player_e_climb=12
 Const player_e_pickup=4
 Const player_e_pos_change=4
-Const player_e_water_swim=8
-Const player_e_water_swimfast=10
-Const player_e_water_turn=4
-Const player_e_water_walk=6
-Const player_e_water_walk_r=8
-Const player_e_inventory_action=1
-
+Const player_e_w_swim=8
+Const player_e_w_swimfast=10
+Const player_e_w_turn=4
+Const player_e_w_walk=6
+Const player_e_w_walk_r=8
+Const player_e_inventory_action_1=1
+Const player_e_inventory_action_2=2
 
 
 
@@ -315,7 +448,7 @@ Global player_move_s[player_max]
 'ausrichtung
 Global player_align[player_max]
 Global player_position[player_max]
-
+Global player_weapon_position[player_max]
 
 'animationen
 

@@ -1,16 +1,22 @@
 
 
+Function player_energy_reg(index)
+
+  'oder wenn runde um
+
+  If timestemp>player_energy_t[index]+player_energy_s[index] Then
+    player_energy_t[index]=timestemp
+    If player_energy[index]<player_energy_lowered[index] Then player_energy[index]:+1
+  End If
+
+
+End Function
 
 
 Function player_regeneration()
   For Local i=0 To player_max-1
 
     If player[i]>0 Then
-
-      If timestemp>player_energy_t[i]+player_energy_s[i] Then
-        player_energy_t[i]=timestemp
-        If player_energy[i]<player_energy_max[i] Then player_energy[i]:+1
-      End If
 
       If player_bleeding[i]>0 Then
         If timestemp>player_life_t[i]+(100-player_bleeding[i]) Then

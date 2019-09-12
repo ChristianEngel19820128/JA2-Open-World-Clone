@@ -72,7 +72,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=south          
-          player_animation_set(k)
+          player_action_animation_set(k,1)
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -96,7 +96,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=north   
-          player_animation_set(k)       
+          player_action_animation_set(k,1)       
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -120,7 +120,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=west   
-          player_animation_set(k)       
+          player_action_animation_set(k,1)       
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -144,7 +144,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=east   
-          player_animation_set(k)       
+          player_action_animation_set(k,1)       
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -168,7 +168,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=southwest  
-          player_animation_set(k)        
+          player_action_animation_set(k,1)        
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -192,7 +192,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=southeast  
-          player_animation_set(k)        
+          player_action_animation_set(k,1)        
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -216,7 +216,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=northwest  
-          player_animation_set(k)        
+          player_action_animation_set(k,1)        
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 
@@ -240,7 +240,7 @@ Function group_pos_in_world(g)
           player_z[k]=0
 
           player_align[k]=northeast   
-          player_animation_set(k)       
+          player_action_animation_set(k,1)       
 
           set_world_player(player_x[k],player_y[k],player_z[k],group_player_index[g,k])
 

@@ -10,6 +10,8 @@ Const item_type_max=512
 Const item_max=10000
 Const item_group_max=3
 Const item_value_max=5
+Const item_pos_max=4
+Const item_ammo_max=200
 
 
 
@@ -29,22 +31,25 @@ Const cal_p357PB=10
 Const cal_p45acp=11
 Const cal_p45acpHS=12
 Const cal_p45acpPB=13
-Const cal_556x45mm=14
-Const cal_556x45mmHS=15
-Const cal_556x45mmPB=16
-Const cal_556x45mmSS=17
-Const cal_570x28mm=18
-Const cal_570x28mmHS=19
-Const cal_570x28mmPB=20
-Const cal_762x39mm=21
-Const cal_762x39mmHS=22
-Const cal_762x39mmPB=23
-Const cal_762x51mm=24
-Const cal_762x51mmHS=25
-Const cal_762x51mmPB=26
-Const cal_12x70=27
-Const cal_12x70slug=28
-Const cal_12x70buckshot=29
+Const cal_545x39mm=14
+Const cal_545x39mmHS=15
+Const cal_545x39mmPB=16
+Const cal_556x45mm=17
+Const cal_556x45mmHS=18
+Const cal_556x45mmPB=19
+Const cal_556x45mmSS=20
+Const cal_570x28mm=21
+Const cal_570x28mmHS=22
+Const cal_570x28mmPB=23
+Const cal_762x39mm=24
+Const cal_762x39mmHS=25
+Const cal_762x39mmPB=26
+Const cal_762x51mm=27
+Const cal_762x51mmHS=28
+Const cal_762x51mmPB=29
+Const cal_12x70=30
+Const cal_12x70slug=31
+Const cal_12x70buckshot=32
 
 
 
@@ -152,6 +157,8 @@ Const group_fastloader=73
 Const group_picklock=74
 Const group_leverage=75
 
+Const group_heap=76
+
 
 
 
@@ -181,7 +188,7 @@ Global item_type_damage[item_type_max]
 Global item_type_range[item_type_max]
 Global item_type_stack[item_type_max]
 Global item_type_contain[item_type_max]
-Global item_type_munition[item_type_max]
+Global item_type_ammo[item_type_max]
 Global item_type_group[item_type_max,item_group_max]
 Global item_type_light[item_type_max]
 Global item_type_light_range[item_type_max]
@@ -208,16 +215,21 @@ Global mouse_inventory_index
 
 
 
-
-Const location_map=0
-Const location_item=1
+Const location_none=0
+Const location_map=1
 Const location_player=2
 Const location_player_hand=3
 Const location_player_inventory=4
 Const location_player_bag=5
-Const location_object=6
-Const location_mouse=7
-Const location_stack=8
+Const location_item_slot=6
+Const location_item_stack=7
+Const location_object=8
+Const location_mouse=9
+Const location_magazine=10
+Const location_weapon=11
+
+
+
 
 
 
@@ -229,29 +241,27 @@ Global item_type[item_max]
 
 Global item_location[item_max]
 Global item_location_index[item_max]
-Global item_location_pos[item_max]
-Global item_location_pos_1[item_max]
-Global item_location_pos_2[item_max]
-
-Global item_world_x[item_max]
-Global item_world_y[item_max]
-Global item_world_z[item_max]
-Global item_world_i[item_max]
+Global item_location_pos[item_max,item_pos_max]
 
 Global item_zustand[item_max]
 Global item_aktiv[item_max]
 Global item_time[item_max]
 
 
-Global item_room[item_max]
+
+Global item_magazine[item_max]
+Global item_magazine_index[item_max]
+
+Global item_ammo_count[item_max]
+
+Global item_ammo[item_max,item_ammo_max]
+Global item_ammo_index[item_max,item_ammo_max]
+
 
 Global item_stack_count[item_max]
 
 Global item_stack[item_max,item_stack_max]
 Global item_stack_index[item_max,item_stack_max]
-
-Global item_contain[item_max]
-
 
 
 Global item_slot[item_max,item_slot_max,item_capacity_max]

@@ -37,7 +37,7 @@ End Function
 
 Function button_draw(img:TImage,t:String,x,y,c11=255,c12=255,c13=255,c21=200,c22=200,c23=200)
 
-  Local f=False
+  Local f=0
 
 	SetColor(c11,c12,c13)
 	
@@ -45,11 +45,11 @@ Function button_draw(img:TImage,t:String,x,y,c11=255,c12=255,c13=255,c21=200,c22
 
     SetColor(c21,c22,c23)
 
-    If mouse=1 Then
+    If mouse=1 Or mouse=2 Then
+
+      f=mouse
 
       mouse=0
-
-      f=True
 
     End If
 
@@ -138,6 +138,8 @@ Function main_init()
   house_load()
   
 
+  FlushMouse
+
 End Function
 
 
@@ -161,13 +163,18 @@ Function main_menu_draw()
   Local space=40
 
   If button_draw(img_menu_button,strings[t_fortsetzen],wx/2-ImageWidth(img_menu_button)/2,wy/2+0*space-ImageHeight(img_menu_button)/2)=True Then
+
     Print "continue last game"
     laptop_get_start()
 		menu=c_menu_laptop
 		map_load()
-  End If
+
+    FlushMouse
+
+  Else
 
   If button_draw(img_menu_button,strings[t_neustarten],wx/2-ImageWidth(img_menu_button)/2,wy/2+1*space-ImageHeight(img_menu_button)/2)=True Then
+
     Print "start new game"
     laptop_get_start()
 		menu=c_menu_laptop
@@ -175,17 +182,24 @@ Function main_menu_draw()
 		player_clear()
 		laptop_first_run=1
 		laptop_user_player_init=0
-  End If
+		
+		FlushMouse
+		
+  Else
 
   If button_draw(img_menu_button,strings[t_option],wx/2-ImageWidth(img_menu_button)/2,wy/2+2*space-ImageHeight(img_menu_button)/2)=True Then
     Print "open options"
 		'menu=c_menu_option
-  End If
+  Else
 
   If button_draw(img_menu_button,strings[t_ende],wx/2-ImageWidth(img_menu_button)/2,wy/2+3*space-ImageHeight(img_menu_button)/2)=True Then
     Print "end programm"
 		ende=True
   End If
+  End If
+  End If
+  End If
+
 
 End Function
 
@@ -225,7 +239,9 @@ Function main_do()
       gui_minimap_draw()
       gui_maindata_group_draw()
       gui_inventar_draw()
-      gui_hand_draw()
+      gui_inventar_hand_draw()
+      gui_hand_group_draw()
+      gui_mouse_draw()
 
   End Select
 

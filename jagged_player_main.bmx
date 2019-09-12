@@ -94,12 +94,11 @@ Function player_clear_data(index)
 	
 	player_exhaustion[index]=0
 	
-	player_energy_max[index]=500
-	player_energy_lowered[index]=500
-	player_energy[index]=500
+	player_energy_max[index]=1000
+	player_energy_lowered[index]=1000
+	player_energy[index]=1000
 	player_energy_s[index]=1
 	
-	player_moral[index]=50
 	player_moral[index]=50
 	player_angst[index]=50
 	player_hoffnung[index]=50
@@ -122,7 +121,7 @@ Function player_clear_data(index)
 	player_anim_s[index]=100
 	
 	player_anim_transition[index]=player_anim_stand
-	player_animation_set(index)
+	player_action_animation_set(index,1)
 
 
 

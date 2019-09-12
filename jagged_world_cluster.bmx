@@ -769,14 +769,43 @@ Function world_cluster_check()
     
       If world_obj_type[i*world_cluster_size+j,k*world_cluster_size+l,z]=world_obj_player Then
         world_cluster_activ[i,k]=1
+
+        'nachbarn aktivieren um darstellungsfehler zu vermeiden
+        If i>0 And k>0 Then
+          world_cluster_activ[i-1,k-1]=1
+        End If
+        If i>0 Then
+          world_cluster_activ[i-1,k]=1
+        End If
+        If i>0 And k<world_y/world_cluster_size-1 Then
+          world_cluster_activ[i-1,k+1]=1
+        End If
+        If k<world_y/world_cluster_size-1 Then
+          world_cluster_activ[i,k+1]=1
+        End If
+        If i<world_x/world_cluster_size-1 And k<world_y/world_cluster_size-1 Then
+          world_cluster_activ[i+1,k+1]=1
+        End If
+        If i<world_x/world_cluster_size-1 Then
+          world_cluster_activ[i+1,k]=1
+        End If
+        If i<world_x/world_cluster_size-1 And k>0 Then
+          world_cluster_activ[i+1,k-1]=1
+        End If
+        If k>0 Then
+          world_cluster_activ[i,k-1]=1
+        End If
+
       End If
 
       If world_obj_type[i*world_cluster_size+j,k*world_cluster_size+l,z]=world_obj_reserved Then
         world_cluster_activ[i,k]=1
       End If
 
-      If mouse_world_x=i*world_cluster_size+j And mouse_world_y=k*world_cluster_size+l Then
-        world_cluster_activ[i,k]=1
+      If mouse_world>0 Then
+        If mouse_world_x=i*world_cluster_size+j And mouse_world_y=k*world_cluster_size+l Then
+          world_cluster_activ[i,k]=1
+        End If
       End If
 
     Next

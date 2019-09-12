@@ -16,11 +16,11 @@ Function merc_anim_load()
 
     y:+1
 
-    If FileType("gfx/world/merc/"+i+"_"+j+".png")>0 Then
+    If FileType("gfx/world/merc/"+i+"_"+j+".png")=1 Then
 
-    If FileType("gfx/world/merc/"+i+"_"+j+".txt")>0 Then
+    If FileType("gfx/world/merc/"+i+"_"+j+".off")=1 Then
 
-      Local file:TStream=ReadFile("gfx/world/merc/"+i+"_"+j+".txt")
+      Local file:TStream=ReadFile("gfx/world/merc/"+i+"_"+j+".off")
 
       img_merc_dx[i,j]=ReadInt(file)
       img_merc_dy[i,j]=ReadInt(file)

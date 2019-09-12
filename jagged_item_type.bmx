@@ -281,6 +281,9 @@ Function item_types_load()
 		    	Case "leverage"
 			      g=group_leverage
 			
+		    	Case "heap"
+			      g=group_heap
+			
 	      End Select
 
         item_type_group[i,k]=g
@@ -421,6 +424,15 @@ Function item_types_load()
           Case "cal_p45acpPB"
             g=cal_p45acpPB
 
+          Case "cal_545x39mm"
+            g=cal_545x39mm
+
+          Case "cal_545x39mmHS"
+            g=cal_545x39mmHS
+
+          Case "cal_545x39mmPB"
+            g=cal_545x39mmPB
+
           Case "cal_556x45mm"
             g=cal_556x45mm
 
@@ -486,7 +498,7 @@ Function item_types_load()
 
       'type ammo
       ReadLine(file)
-      item_type_munition[i]=Int(ReadLine(file))
+      item_type_ammo[i]=Int(ReadLine(file))
 
       'damage
       ReadLine(file)
@@ -499,9 +511,19 @@ Function item_types_load()
       'stack and space
 
       ReadLine(file)
-      item_type_stack[i]=Int(ReadLine(file))
+
+      Local st=Int(ReadLine(file))
+      If st>item_stack_max Then
+        item_type_stack[i]=item_stack_max
+      Else
+        item_type_stack[i]=st
+      End If
+
       ReadLine(file)
       item_type_contain[i]=Int(ReadLine(file))
+
+
+
 
       'light and color
 
@@ -525,20 +547,20 @@ Function item_types_load()
 
       'slots and capacity
       ReadLine(file)
-      Local s=Int(ReadLine(file))
-      If s>item_slot_max Then
+      Local sl=Int(ReadLine(file))
+      If sl>item_slot_max Then
         item_type_slots[i]=item_slot_max
       Else
-        item_type_slots[i]=s
+        item_type_slots[i]=sl
       End If
 
       ReadLine(file)
       For Local k=0 To item_slot_max-1
-        Local c=Int(ReadLine(file))
-        If c>item_capacity_max Then
+        Local ca=Int(ReadLine(file))
+        If ca>item_capacity_max Then
           item_type_slot_capacity[i,k]=item_capacity_max
         Else
-          item_type_slot_capacity[i,k]=c
+          item_type_slot_capacity[i,k]=ca
         End If
       Next
 	
@@ -568,7 +590,6 @@ Function item_get_type_index(item:String)
     If item_type_link[i]=item Then
       f=True
       Return i
-End
     Else
       i:+1
     End If

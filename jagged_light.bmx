@@ -76,7 +76,7 @@ Function lightmap_refresh_item()
 	          Select item_location[i]
 
 	
-	            Case location_player
+	            Case location_player_hand
 	
 	              If item_type_stack[item_type[i]]=0 Then
 				          If player_hand_index[item_location_index[i],player_hand_right]=i Or player_hand_index[item_location_index[i],player_hand_left]=i Then
@@ -94,19 +94,19 @@ Function lightmap_refresh_item()
 	
 		          If item_type_stack[item_type[i]]=0 Then
 		
-	                Local x=item_world_x[i]
-	                Local y=item_world_y[i]
-	                Local z=item_world_z[i]
+	                Local x=item_location_pos[i,0]
+	                Local y=item_location_pos[i,1]
+	                Local z=item_location_pos[i,2]
 		
 	                set_light(i,x,y,z)
 	
 	              End If
 		
-                Case location_stack
+                Case location_item_stack
 
                   Select item_location[item_location_index[i]]
 
-	                Case location_player
+	                Case location_player_hand
 	
 		              If player_hand_index[item_location_index[item_location_index[i]],player_hand_right]=item_location_index[i] Or player_hand_index[item_location_index[item_location_index[i]],player_hand_left]=item_location_index[i] Then
 	                    x=player_world_x[item_location_index[item_location_index[i]]]
@@ -119,9 +119,9 @@ Function lightmap_refresh_item()
 	
 		            Case location_map
 	
-	                  Local x=item_world_x[item_location_index[i]]
-	                  Local y=item_world_y[item_location_index[i]]
-	                  Local z=item_world_z[item_location_index[i]]
+	                  Local x=item_location_pos[item_location_index[i],0]
+	                  Local y=item_location_pos[item_location_index[i],1]
+	                  Local z=item_location_pos[item_location_index[i],2]
 		
                       set_light(i,x,y,z)
 	
@@ -200,7 +200,7 @@ Function items_light_draw()
 	              DrawImage(img_light_1600x800,MouseX(),MouseY())
 	              End If
 	
-	            Case location_player
+	            Case location_player_hand
 		
 	              If item_type_stack[item_type[i]]=0 Then
 	              If player_hand_index[item_location_index[i],player_hand_right]=i Or player_hand_index[item_location_index[i],player_hand_left]=i Then
@@ -217,8 +217,8 @@ Function items_light_draw()
 		
 	              If item_type_stack[item_type[i]]=0 Then
 	
-	                Local x1=wx/2+(item_world_x[i]-world_cam_x)*20-(item_world_y[i]-world_cam_y)*20-20
-	                Local y1=-wx/2+(item_world_y[i]-world_cam_y)*10+(item_world_x[i]-world_cam_x)*10
+	                Local x1=wx/2+(item_location_pos[i,0]-world_cam_x)*20-(item_location_pos[i,1]-world_cam_y)*20-20
+	                Local y1=-wx/2+(item_location_pos[i,1]-world_cam_y)*10+(item_location_pos[i,0]-world_cam_x)*10
 	                SetScale 0.2,0.2
 	                DrawImage(item_type_img[item_type[i]],x1+20,y1+10)
 	                SetScale 1,1
@@ -226,7 +226,7 @@ Function items_light_draw()
 
                   End If
 
-                Case location_stack
+                Case location_item_stack
 
 			          Select item_location[item_location_index[i]]
 			            Case location_mouse
@@ -234,7 +234,7 @@ Function items_light_draw()
 			              DrawImage(item_type_img[item_type[item_location_index[i]]],MouseX(),MouseY())
 			              DrawImage(img_light_1600x800,MouseX(),MouseY())
 			
-			            Case location_player
+			            Case location_player_hand
 			              If player_hand_index[item_location_index[item_location_index[i]],player_hand_right]=item_location_index[i] Or player_hand_index[item_location_index[item_location_index[i]],player_hand_left]=item_location_index[i] Then
 		
 			                Local x1=wx/2+(player_world_x[item_location_index[item_location_index[i]]]-world_cam_x)*20-(player_world_y[item_location_index[item_location_index[i]]]-world_cam_y)*20-20
@@ -245,8 +245,8 @@ Function items_light_draw()
 			
 			            Case location_map
 			
-			                Local x1=wx/2+(item_world_x[item_location_index[i]]-world_cam_x)*20-(item_world_y[item_location_index[i]]-world_cam_y)*20-20
-			                Local y1=-wx/2+(item_world_y[item_location_index[i]]-world_cam_y)*10+(item_world_x[item_location_index[i]]-world_cam_x)*10
+			                Local x1=wx/2+(item_location_pos[item_location_index[i],0]-world_cam_x)*20-(item_location_pos[item_location_index[i],1]-world_cam_y)*20-20
+			                Local y1=-wx/2+(item_location_pos[item_location_index[i],1]-world_cam_y)*10+(item_location_pos[item_location_index[i],0]-world_cam_x)*10
 			                SetScale 0.2,0.2
 			                DrawImage(item_type_img[item_type[i]],x1+20,y1+10)
 			                SetScale 1,1

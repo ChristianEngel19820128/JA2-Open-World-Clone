@@ -27,13 +27,13 @@ holster
 <Addon Laserpointer>
 0
 <Caliber>
-cal_9mm
-<Caliber Type>
 none
-<Magazine>
+<Caliber Type>
+cal_9mm
+<use Magazine>
 0
-<Ammo>
-0
+<use Ammo>
+6
 <Damage>
 0
 <Range>

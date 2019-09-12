@@ -11,9 +11,9 @@ none
 <used Inventory Slot>
 back
 <used Space>
-15
+60
 <used Room>
-2
+6
 <is Supressed>
 0
 <Addon Supressor>
@@ -30,9 +30,9 @@ back
 none
 <Caliber Type>
 none
-<Magazine>
+<use Magazine>
 0
-<Ammo>
+<use Ammo>
 0
 <Damage>
 0

@@ -1,5 +1,5 @@
 <Name>
-M4 Colt Commando 5,56x45mm
+M4 Colt Commando
 <Imagepath>
 weapon/m4coltcommando.png
 <Groups max=3>
@@ -11,7 +11,7 @@ none
 <used Inventory Slot>
 back
 <used Space>
-25
+50
 <used Room>
 5
 <is Supressed>
@@ -27,13 +27,13 @@ back
 <Addon Laserpointer>
 1
 <Caliber>
-cal_556x45mm
-<Caliber Type>
 none
-<Magazine>
+<Caliber Type>
+cal_556x45mm
+<use Magazine>
 1
-<Ammo>
-0
+<use Ammo>
+1
 <Damage>
 0
 <Range>

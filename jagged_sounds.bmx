@@ -126,7 +126,7 @@ Function playsnd(snd:TSound,ch:TChannel=Null)
       PlaySound(snd,ch)
     Else
       PlaySound(snd)
-    End if
+    End If
   End If
 
 End Function
@@ -160,13 +160,15 @@ Function playsnd_reload(i)
 	Select i
 	  Case group_pistol playsnd(snd_pistol_reload)
 	  Case group_revolver playsnd(snd_revolver_reload)
-	  Case group_mp playsnd(snd_smg_reload)
-	  Case group_mpk playsnd(snd_smg_reload)
-      Case group_smg playsnd(snd_smg_reload)
+	  Case group_mp playsnd(snd_pistol_reload)
+	  Case group_mpk playsnd(snd_pistol_reload)
+    Case group_smg playsnd(snd_smg_reload)
 	  Case group_rifle playsnd(snd_rifle_reload)
 	  Case group_lmg playsnd(snd_lmg_reload)
 	  Case group_shotgun playsnd(snd_rifle_reload)
-	  Case group_magazine playsnd(snd_chamber)	
+	  Case group_magazine playsnd(snd_chamber)
+	  Default Print "No sound reload "+i
+	
 	End Select
 
 End Function
@@ -178,10 +180,12 @@ Function playsnd_lnl(i)
 	  Case group_revolver playsnd(snd_revolver_lnl)
 	  Case group_mp playsnd(snd_smg_lnl)
 	  Case group_mpk playsnd(snd_smg_lnl)
-      Case group_smg playsnd(snd_smg_lnl)
+    Case group_smg playsnd(snd_smg_lnl)
 	  Case group_rifle playsnd(snd_rifle_lnl)
 	  Case group_lmg playsnd(snd_lmg_lnl)
 	  Case group_shotgun playsnd(snd_rifle_lnl)	
+		Default Print "No sound lnl "+i
+		
 	End Select
 
 End Function

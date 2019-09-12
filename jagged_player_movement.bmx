@@ -8,6 +8,19 @@ Function player_calc_animation_speed(index)
 End Function
 
 
+
+Function player_energy_drain(index,energy)
+
+  If energy<=player_energy[index] Then
+    player_energy[index]:-energy
+    'aktionspunkte abziehen
+  End If
+
+End Function
+
+
+
+
 Function player_energy_ok(index,energy)
 
   If player_energy[index]>energy Then
@@ -43,7 +56,10 @@ End Function
 
 Function player_idle(index)
 
-'fülle energie wieder auf
+  'fülle energie wieder auf
+
+  player_energy_reg(index)
+
 
 End Function
 
@@ -52,8 +68,11 @@ Function player_pos_up(index)
 
   If player_action_end[index]=1 Then
     If player_position[index]>0 Then
-      Print "move positon up"
-      player_position[index]:-1
+      If player_energy_ok(index,player_e_pos_change)=True Then
+        Print "move positon up"
+        player_position[index]:-1
+        player_energy_drain(index,player_e_pos_change)
+      End If
     End If
   End If
 
@@ -64,8 +83,11 @@ Function player_pos_down(index)
 
   If player_action_end[index]=1 Then
     If player_position[index]<2 Then
-      Print "move positon down"
-      player_position[index]:+1
+      If player_energy_ok(index,player_e_pos_change)=True Then
+        Print "move positon down"
+        player_position[index]:+1
+        player_energy_drain(index,player_e_pos_change)
+      End If
     End If
   End If
 
@@ -89,6 +111,7 @@ Function player_turn_left(index)
       End If
       player_action_animation_set(index,1)
       player_action_end[index]=1
+      player_energy_drain(index,player_e_turn)
     End If
   End If
 
@@ -111,6 +134,7 @@ Function player_turn_right(index)
       End If
       player_action_animation_set(index,1)
       player_action_end[index]=1
+      player_energy_drain(index,player_e_turn)
     End If
   End If
 
@@ -119,7 +143,7 @@ End Function
 
 
 
-Function player_moveing(index,e)
+Function player_moving(index,e)
 
   Local x=player_get_x(player_align[index])
   Local y=player_get_y(player_align[index])
@@ -140,7 +164,7 @@ Function player_moveing(index,e)
 
       'ende erreicht
 
-      player_energy[index]:-e
+      player_energy_drain(index,e)
 
       player_x[index]=0
       player_y[index]=0
@@ -165,303 +189,12 @@ End Function
 
 
 
-Function player_walk(index)
-
-  Local x=player_get_x(player_align[index])
-  Local y=player_get_y(player_align[index])
-
-  Local e=player_e_walk
-  If world_ambient_type[player_world_x[index]+x,player_world_y[index]+y,player_world_z[index]]>0 Then e:+4
-
-  If player_energy_ok(index,player_e_walk)=True Then
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start walk to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-e
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end walk"
-
-    End If
-
-  End If
-
-End Function
-
-
-
-
-Function player_run(index)
-
-  If player_energy_ok(index,player_e_run)=True Then
-
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start run to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-player_e_run
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end run"
-
-    End If
-
-  End If
-
-End Function
-
-
-
-
-Function player_swat(index)
-
-  If player_energy_ok(index,player_e_swat)=True Then
-
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start swat to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-player_e_swat
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end swat"
-
-    End If
-
-  End If
-
-End Function
-
-
-
-Function player_crawl(index)
-
-  If player_energy_ok(index,player_e_crawl)=True Then
-
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start crawl to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-player_e_crawl
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end crawl"
-
-    End If
-
-  End If
-
-End Function
-
-
-
-Function player_w_walk(index)
-
-  If player_energy_ok(index,player_e_water_walk)=True Then
-
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start water walk to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-player_e_water_walk
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end water walk"
-
-    End If
-
-  End If
-
-End Function
-
-
-
-
-Function player_w_swim(index)
-
-  If player_energy_ok(index,player_e_water_swim)=True Then
-
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start water swim to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-player_e_water_swim
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end water swim"
-
-    End If
-
-  End If
-
-End Function
-
-
-
-
-Function player_w_swimfast(index)
-
-  If player_energy_ok(index,player_e_water_swimfast)=True Then
-
-    Local x=player_get_x(player_align[index])
-    Local y=player_get_y(player_align[index])
-
-    If player_action_started[index]=1 Then
-      player_action_started[index]=0
-      reserve_world_player(player_world_x[index]+x,player_world_y[index]+y,player_world_z[index])
-
-      Print "start water swim fast to x="+(player_world_x[index]+x)+" y="+(player_world_y[index]+y)
-
-    End If
-
-    If player_move(index)=1 Then
-
-      'ende erreicht
-
-      player_energy[index]:-player_e_water_swimfast
-
-      player_x[index]=0
-      player_y[index]=0
-
-      del_world_player(player_world_x[index],player_world_y[index],player_world_z[index])
-      player_world_x[index]:+x
-      player_world_y[index]:+y
-      set_world_player(player_world_x[index],player_world_y[index],player_world_z[index],index)
-
-      player_action_end[index]=1
-
-      Print "end water fast swim"
-
-    End If
-
-  End If
-
-End Function
 
 
 
 Function player_move(index)
 
-  If MilliSecs()>player_move_t[index]+player_move_s[index] Then
+  If now>player_move_t[index]+player_move_s[index] Then
     player_move_t[index]=MilliSecs()
 
     Local x=player_get_vx(player_align[index])

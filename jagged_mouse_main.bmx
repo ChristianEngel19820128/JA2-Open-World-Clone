@@ -10,6 +10,8 @@ Function mouse_do()
   If MouseHit(1) Then mouse=1
   If MouseHit(2) Then mouse=2
 
+  FlushMouse()
+
   mouse_x=MouseX()
   mouse_y=MouseY()
 
@@ -122,9 +124,11 @@ Function mouse_get_in_world()
   If mouseover(gui_main_data_x,gui_main_data_y,gui_main_data_dx,gui_main_data_dy) = False Then
   If (gui_inventar_open=1 And mouseover(gui_inventar_x,gui_inventar_y,gui_inventar_dx,gui_inventar_dy) = False) Or (gui_inventar_open=0 And mouseover(gui_inventar_x,gui_inventar_y,gui_inventar_minimized_dx,gui_inventar_dy) = False) Then
   If mouseover(gui_hand_x,gui_hand_y,gui_hand_dx,gui_hand_dy) = False Then
+  If (gui_hand2_open=1 And mouseover(gui_hand2_x,gui_hand2_y,gui_hand2_dx,gui_hand2_dy) = False) Or (gui_hand2_open=0 And mouseover(gui_hand2_x,gui_hand2_y,gui_hand2_minimized_dx,gui_hand2_dy) = False) Then
 
     mouse_for_each_cluster()
 
+  End If
   End If
   End If
   End If
