@@ -8,7 +8,7 @@ It's a Long-Term-Project in progress. Realy it's in progress and I see it's a re
 
 Don't be affraid the code is denglish. I try my best.
 
-At the moment I convert the code from strict to super strict mode. In addition I try to reduce the RAM usage and temp savespace by converting Ints to lower Shorts or Bytes. Sure, I could do that from start. There is a reason: The gameworld is big and dynamic. In this case the global world must temporary be saved and loaded on filelevel. On a let's say 1024x1024 field with a X,Y of 256 and a Z of 5 (yes there is a Z of more then 1) you can calculate that are many Bytes. Let me calculate that for you:
+The changes from Int to lower Shorts and Bytes produces more than trouble. The RAM usage don't change, because all values will saved as Int in RAM. So I made a step back. For saving files the usage of mostly Bytes persist. The gameworld persist big and dynamic. In this case the global world must temporary be saved and loaded on filelevel. At the moment the max of the worldheightmap is 2048x2048 fields. On a let's say 1024x1024 field with a X,Y of 256 and a Z of 5 (yes there is a Z of more then 1) you can calculate that are many Bytes. Let me calculate that for you:
 
 1024 x 1024 = 1.048.576 fields on GPS map
 256 x 256 x 5 = 327.680 fields on world map
@@ -20,9 +20,11 @@ So there is many to read. The reality is: the most fields are empty, because the
 Another Case then loadingtimes and space is the FPS. If you ever tried to realize pathfinding you know. This costs time you need for other things. Multitasking is an Illusion. The difference is: If you step all the time truth your tasks or to end one step before starting the next one. It's like projects. Start many end nothing. Digressed.
 Short: So I have reworked the Pathfinding of my A* algorithm.
 
-As I guess. There is a file exporter. In this file there are functions to export grafics from STI file format. Its not buggy but a bit lazy and dirty. It works. I'm sure, I will rework it anytime. But it will never become a tool. It was always tought as edit and go source.
+I hope, I reach a state that is more then a techdemo anytime.
 
-In all it's hard to code something useful. A project rises really fast to an amount and a point where you need to learn how to handle this. Except the time you can spend on it.
+As I forgot. There is a file exporter. In this file there are functions to export grafics from STI file format. Its not buggy but a bit lazy and dirty. It works. I'm sure, I will rework it anytime. But it will never become a tool. It was always tought as edit and go source.
+
+In all it's hard to code something useful. A project rises really fast to an amount and a point where I need to learn how to handle this. Except the time you can spend on it.
 
 Oh, my tabstop in IDE is set to 2 spaces. Don't wonder about misrepresentation in repo. Sometimes I'm forced to use tab instead of spaces. But I like spaces and the BMax IDE don't convert tab to space.
 
